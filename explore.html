@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChowSpot | Explore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+
+    /* NAV LINK HOVER + ACTIVE */
+    .nav-link {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #f59e0b;
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #f59e0b;
+    }
+
+  </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-white scroll-smooth">
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-950/70 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/20">
+
+    <nav class="max-w-7xl mx-auto px-6 py-4">
+
+      <div class="flex items-center justify-between gap-8">
+
+        <!-- LOGO -->
+        <a href="index.html" class="text-2xl font-bold flex items-center gap-2">
+  
+          <span class="text-white text-3xl">🥘</span>
+
+          <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+            ChowSpot
+          </span>
+
+        </a>
+
+        <!-- DESKTOP MENU (centered) -->
+        <ul class="hidden md:flex items-center gap-8 text-sm font-medium flex-1 justify-center">
+
+          <li>
+            <a href="index.html" class="nav-link transition">Home</a>
+          </li>
+
+          <li>
+            <a href="explore.html" class="nav-link transition">Explore</a>
+          </li>
+
+          <li>
+            <a href="vendor.html" class="nav-link transition">Vendors</a>
+          </li>
+
+          <li>
+            <a href="register.html" class="nav-link transition">Register</a>
+          </li>
+
+        </ul>
+
+        <!-- RIGHT: Sign In + CTA -->
+        <div class="hidden md:flex items-center gap-4 shrink-0">
+
+          <a href="#" class="text-sm font-medium nav-link transition"></a>
+
+          <a href="explore.html" class="bg-amber-500 hover:bg-amber-400 text-black font-semibold text-sm px-5 py-2.5 rounded-xl transition duration-300 hover:scale-105 hover:shadow-amber-500/40 hover:shadow-lg">
+            Find Food →
+          </a>
+
+        </div>
+
+        <!-- MOBILE MENU BUTTON -->
+        <button id="menu-btn" class="md:hidden text-3xl">
+          ☰
+        </button>
+
+      </div>
+
+      <!-- MOBILE MENU -->
+      <div id="mobile-menu" class="hidden flex-col gap-4 mt-6 md:hidden text-sm font-medium">
+
+        <a href="index.html" class="nav-link transition">Home</a>
+        <a href="explore.html" class="nav-link transition">Explore</a>
+        <a href="vendor.html" class="nav-link transition">Vendors</a>
+        <a href="register.html" class="nav-link transition">Register</a>
+
+        <div class="flex items-center gap-4 pt-2 border-t border-slate-800">
+          <a href="#" class="nav-link transition text-sm"></a>
+          <a href="explore.html" class="bg-amber-500 hover:bg-amber-400 text-black font-semibold px-5 py-2.5 rounded-xl transition duration-300">
+            Find Food →
+          </a>
+        </div>
+
+      </div>
+
+    </nav>
+
+  </header>
+
+  <!-- EXPLORE HERO -->
+  <section class="py-20 fade-up">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="text-center max-w-3xl mx-auto">
+
+        <p class="text-amber-400 font-medium mb-4">
+          Explore Food Vendors
+        </p>
+
+        <h1 class="text-5xl md:text-6xl font-bold leading-tight">
+          Discover The Best
+          Street Food Spots
+        </h1>
+
+        <p class="text-slate-400 text-lg mt-6 leading-relaxed">
+          Browse top-rated local food vendors,
+          hidden bukkas, shawarma joints, and spicy suya spots around Nigeria.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>  
+
+  <!-- SEARCH & FILTER -->
+  <section class="pb-12 fade-up">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 flex flex-col lg:flex-row gap-5 items-center">
+
+        <!-- SEARCH INPUT -->
+        <input type="text" id="searchInput" placeholder="Search vendors or food types..."
+        class="w-full lg:flex-1 bg-slate-950 border border-slate-800 rounded-xl px-5 py-4 outline-none focus:border-amber-400 transition hover:shadow-amber-500/40 hover:shadow-lg"> 
+
+        <!-- FILTER BUTTONS -->
+        <div class="flex flex-wrap gap-3">
+
+          <button class="filter-btn bg-amber-500 text-black px-5 py-3 rounded-xl font-medium" data-category="all">
+            All
+          </button>
+
+          <button class="filter-btn bg-slate-800 hover:bg-slate-700 px-5 py-3 rounded-xl transition" data-category="suya">
+            Suya
+          </button>
+
+          <button class="filter-btn bg-slate-800 hover:bg-slate-700 px-5 py-3 rounded-xl transition" data-category="shawarma">
+            Shawarma
+          </button>
+
+          <button class="filter-btn bg-slate-800 hover:bg-slate-700 px-5 py-3 rounded-xl transition" data-category="jollof">
+            Jollof
+          </button>
+
+        </div> 
+      </div>
+
+    </div>
+
+  </section> .
+
+  <!-- FOOD LISTINGS -->
+  <section class="pb-24 fade-up">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div id="foodContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- CARD 1 -->
+        <div class="group food-card bg-slate-900 border border-slate-800 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300 rounded-3xl overflow-hidden shadow-xl" data-name="Mama Nkechi Suya" data-category="suya">
+          
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200&auto=format&fit=crop" 
+          class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
+
+          <div class="p-6">
+
+            <div class="flex justify-between items-start">
+
+              <div>
+                <h3 class="text-2xl font-semibold">
+                  Mama Nkechi Suya
+                </h3>
+
+                <p class="text-slate-400 mt-2">
+                  <i class="fa-solid fa-location-dot text-amber-400 mr-2"></i>Ring Road, Benin City
+                </p>
+              </div>
+              <span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-sm">
+                ⭐ 4.8
+              </span>
+
+            </div>
+
+            <p class="text-slate-400 mt-5 leading-relaxed">
+              Famous for smoky northern-style suya and spicy pepper mix.
+            </p>
+
+            <a href="vendor.html?vendor=mama-nkechi" class="view-details-btn mt-6 w-full bg-amber-500 hover:bg-amber-400 text-black text-center font-semibold py-3 rounded-xl transition duration-300 hover:scale-[1.02] hover:shadow-amber-500/40 hover:shadow-lg block">
+              View Details →
+            </a>
+
+          </div>
+          
+        </div>
+        
+        <!-- CARD 2 -->
+        <div class="group food-card bg-slate-900 border border-slate-800 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300 rounded-3xl overflow-hidden shadow-xl" data-name="Shawarma Hub" data-category="shawarma">
+
+          <img src="Images/Shawarma-Hub-Cover5.jfif" class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
+
+          <div class="p-6">
+
+            <div class="flex justify-between items-start">
+
+              <div>
+                <h3 class="text-2xl font-semibold">
+                 Shawarma Hub
+                </h3>
+
+                <p class="text-slate-400 mt-2">
+                 <i class="fa-solid fa-location-dot text-amber-400 mr-2"></i>Sapele Road, Benin City
+                </p>
+              </div>
+
+              <span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-sm">
+                ⭐ 4.9
+              </span>
+
+            </div>
+
+            <p class="text-slate-400 mt-5 leading-relaxed">
+              Loaded shawarmas with creamy sauce and spicy chicken filling.
+            </p>
+
+            <a href="vendor.html?vendor=shawarma-hub" class="view-details-btn mt-6 w-full bg-amber-500 hover:bg-amber-400 text-black text-center font-semibold py-3 rounded-xl transition duration-300 hover:scale-[1.02] hover:shadow-amber-500/40 hover:shadow-lg block">
+              View Details →
+            </a>
+
+          </div>
+
+        </div>
+        
+        <!-- CARD 3 -->
+        <div class="group food-card bg-slate-900 border border-slate-800 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300 rounded-3xl overflow-hidden shadow-xl" data-name="Bukka Royale" data-category="jollof">
+
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop" 
+          class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
+
+          <div class="p-6">
+
+            <div class="flex justify-between items-start">
+
+              <div>
+                <h3 class="text-2xl font-semibold">
+                  Bukka Royale
+                </h3>
+
+                <p class="text-slate-400 mt-2">
+                  <i class="fa-solid fa-location-dot text-amber-400 mr-2"></i>GRA, Benin City
+                </p>
+              </div>
+
+              <span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-sm">
+                ⭐ 4.7
+              </span>
+
+            </div>
+
+            <p class="text-slate-400 mt-5 leading-relaxed">
+              Party jollof rice and peppered turkey loved across the city.
+            </p>
+
+            <a href="vendor.html?vendor=bukka-royale" class="view-details-btn mt-6 w-full bg-amber-500 hover:bg-amber-400 text-black text-center font-semibold py-3 rounded-xl transition duration-300 hover:scale-[1.02] hover:shadow-amber-500/40 hover:shadow-lg block">
+              View Details →
+            </a>
+
+          </div>
+
+        </div> 
+
+        <!-- AMAKA BOLE -->
+        <div class="group food-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden transition duration-300 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/20 hover:shadow-2xl" 
+        data-category="bole grill">
+
+          <img src="Images/Amaka-Bole-Spot.jfif" alt="Amaka Bole Spot" class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
+
+          <div class="p-6">
+
+            <div class="flex justify-between items-center">
+
+              <h2 class="text-2xl font-semibold">
+                Amaka Bole Spot
+              </h2>
+
+              <span class="text-amber-400">
+               ⭐ 4.7
+              </span>
+
+            </div>
+
+            <p class="text-slate-400 mt-3">
+              <i class="fa-solid fa-location-dot text-amber-400 mr-2"></i>Ada George, Port Harcourt
+            </p>
+
+            <p class="text-slate-500 mt-4 leading-relaxed">
+              Smoky bole, grilled fish, and spicy local sauces.
+            </p>
+
+            <a href="vendor.html?vendor=amaka-bole" class="view-details-btn mt-6 w-full bg-amber-500 hover:bg-amber-400 text-black text-center font-semibold py-3 rounded-xl transition duration-300 hover:scale-[1.02] hover:shadow-amber-500/40 hover:shadow-lg block">
+              View Details →
+            </a>
+
+          </div>
+
+        </div>
+
+        <!-- IYA BASIRA -->
+        <div class="group food-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden transition duration-300 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/20 hover:shadow-2xl"
+        data-category="local amala egusi">
+
+          <img src="Images/Iya-Basira-Kitchen.jfif" alt="Iya Basira Kitchen" class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
+
+          <div class="p-6">
+
+            <div class="flex justify-between items-center">
+
+              <h2 class="text-2xl font-semibold">
+                Iya Basira Kitchen
+              </h2>
+
+              <span class="text-amber-400">
+                ⭐ 4.8
+              </span>
+
+            </div>
+
+            <p class="text-slate-400 mt-3">
+              <i class="fa-solid fa-location-dot text-amber-400 mr-2"></i>Yaba, Lagos
+            </p>
+
+            <p class="text-slate-500 mt-4 leading-relaxed">
+              Authentic amala, ewedu, and rich Yoruba local dishes.
+            </p>
+
+            <a href="vendor.html?vendor=iya-basira" class="view-details-btn mt-6 w-full bg-amber-500 hover:bg-amber-400 text-black text-center font-semibold py-3 rounded-xl transition duration-300 hover:scale-[1.02] hover:shadow-amber-500/40 hover:shadow-lg block">
+              View Details →
+            </a>
+
+          </div>
+
+        </div>
+
+        <!-- CHOPS & PEPPERS -->
+        <div class="group food-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden transition duration-300 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/20 hover:shadow-2xl"
+        data-category="small chops snacks">
+
+          <img src="Images/Chops-and-Peppers.jfif" alt="Chops & Peppers" class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
+
+          <div class="p-6">
+
+            <div class="flex justify-between items-center">
+
+              <h2 class="text-2xl font-semibold">
+                Chops & Peppers
+              </h2>
+
+              <span class="text-amber-400">
+                ⭐ 4.6
+              </span>
+
+            </div>
+
+            <p class="text-slate-400 mt-3">
+              <i class="fa-solid fa-location-dot text-amber-400 mr-2"></i>Wuse 2, Abuja
+            </p>
+
+            <p class="text-slate-500 mt-4 leading-relaxed">
+              Crunchy small chops and spicy late-night bites.
+            </p>
+
+            <a href="vendor.html?vendor=chops-peppers" class="view-details-btn mt-6 w-full bg-amber-500 hover:bg-amber-400 text-black text-center font-semibold py-3 rounded-xl transition duration-300 hover:scale-[1.02] hover:shadow-amber-500/40 hover:shadow-lg block">
+              View Details →
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- EMPTYSTATE -->
+      <p id="emptyState" class="hidden text-center text-slate-500 text-xl mt-16">
+        No food spots found.
+      </p> 
+
+    </div>
+
+  </section> 
+  
+
+  <!-- FOOTER -->
+   <footer class="border-t border-slate-800 bg-slate-950">
+
+     <div class="max-w-7xl mx-auto px-6 py-16">
+
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+
+          <!-- BRAND -->
+          <div>
+
+            <a href="index.html" class="text-2xl font-bold flex items-center gap-2">
+  
+              <span class="text-white text-3xl">🥘</span>
+
+              <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+                ChowSpot
+              </span>
+
+            </a>
+
+            <p class="text-slate-400 mt-5 leading-relaxed">
+              Discover authentic Nigerian street food spots,
+              hidden local vendors, and unforgettable flavors across your city.
+            </p>
+
+          </div> 
+
+          <!-- QUICK LINKS -->
+          <div>
+
+            <h3 class="text-xl font-semibold mb-5">
+              Quick Links
+            </h3>
+
+            <ul class="space-y-4 text-slate-400">
+
+             <li>
+                <a href="index.html" class="hover:text-amber-400 transition">
+                 Home
+                </a>
+              </li>
+
+              <li>
+                <a href="explore.html" class="hover:text-amber-400 transition">
+                 Explore
+                </a>
+              </li>
+
+              <li>
+                <a href="vendor.html" class="hover:text-amber-400 transition">
+                  Vendors
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+        
+          <!-- POPULAR CATEGORIES -->
+          <div>
+
+            <h3 class="text-xl font-semibold mb-5">
+              Popular Foods
+            </h3>
+
+            <ul class="space-y-4 text-slate-400">
+
+              <li class="hover:text-amber-400 transition cursor-pointer">
+                Suya
+              </li>
+
+              <li class="hover:text-amber-400 transition cursor-pointer">
+                Shawarma
+              </li>
+
+              <li class="hover:text-amber-400 transition cursor-pointer">
+                Jollof Rice
+              </li>
+
+              <li class="hover:text-amber-400 transition cursor-pointer">
+                Pepper Soup
+              </li>
+
+            </ul>
+
+          </div> 
+
+          <!-- CONTACT -->
+          <div>
+            <h3 class="text-xl font-semibold mb-5">
+              Contact
+            </h3>
+
+            <ul class="space-y-4 text-slate-400">
+
+              <li>
+               📍 Benin City, Nigeria
+              </li>
+
+              <li>
+               📧 hello@chowspot.com
+              </li>
+
+              <li>
+               📞 +234 902 998 5371
+              </li>
+
+            </ul>
+
+            <!-- SOCIALS -->
+            <div class="flex gap-4 mt-6">
+
+              <!-- X / Twitter -->
+              <a href="#" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center hover:bg-amber-500 hover:text-black hover:border-amber-500 transition duration-300">
+                <i class="fa-brands fa-x-twitter"></i>
+              </a>
+
+              <!-- Instagram -->
+              <a href="#" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center hover:bg-amber-500 hover:text-black hover:border-amber-500 transition duration-300">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+
+              <!-- Facebook -->
+              <a href="#" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center hover:bg-amber-500 hover:text-black hover:border-amber-500 transition duration-300">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+            </div>
+
+          </div> 
+
+        </div>
+
+        <!-- BOTTOM -->
+        <div class="border-t border-slate-800 mt-14 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-500 text-sm">
+          <p>
+            © 2026 ChowSpot. All rights reserved.
+          </p>
+
+          <p>
+            Built with ❤️ for Nigerian street food lovers.
+          </p>
+
+        </div>
+
+      </div>
+
+    </footer>
+
+    <button id="topBtn" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-amber-500 text-black w-14 h-14 rounded-full shadow-2xl hidden hover:scale-110 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300">
+      <i class="fa-solid fa-arrow-up text-xl font-black"></i>
+    </button>
+
+    <script src="./js/app.js"></script>
+</body>
+</html>

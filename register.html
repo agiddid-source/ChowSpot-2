@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChowSpot | Register Your Spot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* NAV LINK HOVER + ACTIVE */
+    .nav-link {
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #f59e0b;
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after { width: 100%; }
+    .nav-link:hover,
+    .nav-link.active { color: #f59e0b; }
+
+    /* Input focus glow */
+    .form-input:focus {
+      outline: none;
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+    }
+
+    /* Day row */
+    .day-row { display: grid; grid-template-columns: 120px 1fr 1fr auto; gap: 8px; align-items: center; }
+
+    @media (max-width: 640px) {
+      .day-row { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+      .day-label { grid-column: 1 / -1; }
+      .day-closed { grid-column: 1 / -1; justify-self: start; }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-white">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-950/70 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/20">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+      <div class="flex items-center justify-between gap-8">
+
+        <a href="index.html" class="text-2xl font-bold flex items-center gap-2">
+  
+          <span class="text-white text-3xl">🥘</span>
+
+          <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+            ChowSpot
+          </span>
+
+        </a>
+
+        <ul class="hidden md:flex items-center gap-8 text-sm font-medium flex-1 justify-center">
+          <li><a href="index.html" class="nav-link transition">Home</a></li>
+          <li><a href="explore.html" class="nav-link transition">Explore</a></li>
+          <li><a href="vendor.html" class="nav-link transition">Vendors</a></li>
+          <li><a href="register.html" class="nav-link transition">Register</a></li>
+        </ul>
+
+        <div class="hidden md:flex items-center gap-4 shrink-0">
+          <a href="#" class="text-sm font-medium nav-link transition">Sign In</a>
+          <a href="explore.html" class="bg-amber-500 hover:bg-amber-400 text-black font-semibold text-sm px-5 py-2.5 rounded-xl transition duration-300 hover:scale-105 hover:shadow-amber-500/40 hover:shadow-lg">
+            Find Food →
+          </a>
+        </div>
+
+        <button id="menu-btn" class="md:hidden text-3xl">☰</button>
+      </div>
+
+      <div id="mobile-menu" class="hidden flex-col gap-4 mt-6 md:hidden text-sm font-medium">
+        <a href="index.html" class="nav-link transition">Home</a>
+        <a href="explore.html" class="nav-link transition">Explore</a>
+        <a href="vendor.html" class="nav-link transition">Vendors</a>
+        <a href="register.html" class="nav-link transition">Register</a>
+        <div class="flex items-center gap-4 pt-2 border-t border-slate-800">
+          <a href="#" class="nav-link transition text-sm">Sign In</a>
+          <a href="explore.html" class="bg-amber-500 hover:bg-amber-400 text-black font-semibold px-5 py-2.5 rounded-xl transition duration-300">Find Food →</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent pointer-events-none"></div>
+    <div class="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 blur-3xl rounded-full pointer-events-none"></div>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center fade-up">
+      <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 text-amber-400 px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <span class="text-white text-2xl">🥘</span> Join ChowSpot
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
+        Register Your <span class="text-amber-400">Food Spot</span>
+      </h1>
+      <p class="text-slate-400 text-base sm:text-lg leading-relaxed">
+        Get your spot discovered by thousands of food lovers across Nigeria. Fill in your details and we'll have you listed in no time.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- FORM -->
+  <section class="pb-28 fade-up">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-10 space-y-8">
+
+        <!-- SECTION: Basic Info -->
+        <div>
+          <h2 class="text-xl font-bold text-amber-400 mb-6 pb-3 border-b border-slate-800">
+            <i class="fa-solid fa-store mr-2"></i>Basic Information
+          </h2>
+
+          <div class="space-y-5">
+
+            <!-- Vendor Name -->
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Vendor / Spot Name *</label>
+              <input type="text" id="vendorName" placeholder="e.g. Mama Nkechi Suya"
+                class="form-input w-full bg-slate-800 border border-slate-700 rounded-2xl px-5 py-4 text-white placeholder:text-slate-500 transition">
+            </div>
+
+            <!-- Category -->
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Food Category *</label>
+              <select id="vendorCategory"
+                class="form-input w-full bg-slate-800 border border-slate-700 rounded-2xl px-5 py-4 text-white transition appearance-none">
+                <option value="" disabled selected class="text-slate-500">Select a category</option>
+                <option value="suya">Suya / Grilled Meat</option>
+                <option value="shawarma">Shawarma / Fast Food</option>
+                <option value="jollof">Jollof Rice / Local Meals</option>
+                <option value="bole">Bole / Roasted Food</option>
+                <option value="local">Local Dishes (Amala, Egusi, etc.)</option>
+                <option value="small chops">Small Chops / Snacks</option>
+                <option value="seafood">Seafood</option>
+                <option value="pepper soup">Pepper Soup</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Description -->
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Short Description *</label>
+              <textarea id="vendorDesc" placeholder="Tell customers what makes your spot special..." rows="3"
+                class="form-input w-full bg-slate-800 border border-slate-700 rounded-2xl px-5 py-4 text-white placeholder:text-slate-500 transition resize-none"></textarea>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- SECTION: Location & Contact -->
+        <div>
+          <h2 class="text-xl font-bold text-amber-400 mb-6 pb-3 border-b border-slate-800">
+            <i class="fa-solid fa-location-dot mr-2"></i>Location & Contact
+          </h2>
+
+          <div class="space-y-5">
+
+            <!-- City -->
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">City / Area *</label>
+              <input type="text" id="vendorCity" placeholder="e.g. Ring Road, Benin City"
+                class="form-input w-full bg-slate-800 border border-slate-700 rounded-2xl px-5 py-4 text-white placeholder:text-slate-500 transition">
+            </div>
+
+            <!-- Full Address -->
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Full Address *</label>
+              <input type="text" id="vendorAddress" placeholder="e.g. Ring Road Junction, Benin City, Edo State, Nigeria"
+                class="form-input w-full bg-slate-800 border border-slate-700 rounded-2xl px-5 py-4 text-white placeholder:text-slate-500 transition">
+            </div>
+
+            <!-- WhatsApp -->
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">WhatsApp Number *</label>
+              <div class="flex gap-3">
+                <span class="bg-slate-800 border border-slate-700 rounded-2xl px-4 py-4 text-slate-400 text-sm shrink-0 flex items-center">+234</span>
+                <input type="tel" id="vendorWhatsapp" placeholder="e.g. 8011122233"
+                  class="form-input flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-5 py-4 text-white placeholder:text-slate-500 transition">
+              </div>
+              <p class="text-slate-500 text-xs mt-2">Customers will use this to place orders via WhatsApp.</p>
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+        <!-- SECTION: Menu Highlights -->
+        <div>
+          <h2 class="text-xl font-bold text-amber-400 mb-2 pb-3 border-b border-slate-800">
+            <i class="fa-solid fa-utensils mr-2"></i>Menu Highlights
+          </h2>
+          <p class="text-slate-500 text-sm mb-6">Add up to 6 of your best dishes. Each dish needs a name, price, short description, and a cover photo.</p>
+
+          <div id="menuItemsContainer" class="space-y-6"></div>
+
+          <button type="button" id="addMenuItemBtn"
+            class="mt-6 w-full border-2 border-dashed border-slate-700 hover:border-amber-400 hover:text-amber-400 text-slate-500 py-4 rounded-2xl transition duration-300 text-sm font-medium flex items-center justify-center gap-2">
+            <i class="fa-solid fa-plus"></i> Add Dish
+          </button>
+        </div>
+
+        <!-- SECTION: Opening Hours -->
+        <div>
+          <h2 class="text-xl font-bold text-amber-400 mb-6 pb-3 border-b border-slate-800">
+            <i class="fa-solid fa-clock mr-2"></i>Opening Hours
+          </h2>
+
+          <div class="space-y-3" id="hoursContainer">
+
+            <!-- Day rows injected by JS -->
+
+          </div>
+        </div>
+
+
+        <!-- SECTION: Photo -->
+        <div>
+          <h2 class="text-xl font-bold text-amber-400 mb-6 pb-3 border-b border-slate-800">
+            <i class="fa-solid fa-image mr-2"></i>Cover Photo
+          </h2>
+
+          <div id="dropZone"
+            class="border-2 border-dashed border-slate-700 hover:border-amber-400 rounded-2xl p-10 text-center cursor-pointer transition duration-300 group">
+            <i class="fa-solid fa-cloud-arrow-up text-4xl text-slate-600 group-hover:text-amber-400 transition mb-4 block"></i>
+            <p class="text-slate-400">Drag & drop your photo here or <span class="text-amber-400 font-medium">click to browse</span></p>
+            <p class="text-slate-600 text-xs mt-2">JPG, PNG or WEBP — max 5MB</p>
+            <input type="file" id="photoInput" accept="image/*" class="hidden">
+          </div>
+
+          <!-- Preview -->
+          <div id="photoPreview" class="hidden mt-4">
+            <img id="previewImg" class="w-full h-48 object-cover rounded-2xl border border-slate-700">
+            <button id="removePhoto" class="mt-3 text-sm text-red-400 hover:text-red-300 transition">
+              <i class="fa-solid fa-trash mr-1"></i>Remove photo
+            </button>
+          </div>
+
+        </div>
+
+
+        <!-- SUBMIT -->
+        <div class="pt-2">
+          <button id="submitBtn"
+            class="w-full bg-amber-500 hover:bg-amber-400 text-black font-bold py-5 rounded-2xl transition duration-300 hover:scale-[1.01] hover:shadow-amber-500/40 hover:shadow-lg text-lg">
+            Submit My Spot 🚀
+          </button>
+          <p class="text-slate-500 text-xs text-center mt-4">
+            By submitting, you agree to ChowSpot's listing guidelines. We review all submissions before publishing.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- SUCCESS MODAL -->
+  <div id="successModal" class="fixed inset-0 z-[70] hidden items-center justify-center px-4">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div class="relative bg-slate-900 border border-slate-700 rounded-3xl p-10 max-w-md w-full text-center shadow-2xl">
+      <div class="w-20 h-20 rounded-full bg-amber-500/10 flex items-center justify-center text-4xl mx-auto mb-6">🎉</div>
+      <h2 class="text-2xl font-bold mb-3">You're on the list!</h2>
+      <p class="text-slate-400 leading-relaxed mb-8">
+        Your spot has been submitted successfully. Our team will review it and get you listed within 24 hours.
+      </p>
+      <a href="explore.html"
+        class="inline-block bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-4 rounded-2xl transition duration-300 hover:scale-[1.02]">
+        Explore ChowSpot →
+      </a>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-slate-500 text-sm">
+        <a href="index.html" class="text-2xl font-bold flex items-center gap-2">
+  
+          <span class="text-white text-3xl">🥘</span>
+
+          <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+            ChowSpot
+          </span>
+
+        </a>
+        <p>© 2026 ChowSpot. All rights reserved.</p>
+        <p>Built with ❤️ for Nigerian street food lovers.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/app.js"></script>
+
+  <script>
+    // MOBILE MENU (standalone since app.js may not target register page menu)
+    document.getElementById("menu-btn").addEventListener("click", () => {
+      const m = document.getElementById("mobile-menu");
+      m.classList.toggle("hidden");
+      m.classList.toggle("flex");
+    });
+
+    // ACTIVE NAV
+    document.querySelectorAll(".nav-link").forEach((link) => {
+      const path = (link.getAttribute("href") || "").split("?")[0];
+      if (path === "register.html") link.classList.add("active");
+    });
+
+    // FADE UP
+    const fadeEls = document.querySelectorAll(".fade-up");
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) setTimeout(() => e.target.classList.add("show"), i * 150);
+      });
+    });
+    fadeEls.forEach((el) => obs.observe(el));
+
+    
+    // MENU HIGHLIGHTS
+    let menuItemCount = 0;
+    const MAX_MENU_ITEMS = 6;
+    const menuItemsContainer = document.getElementById("menuItemsContainer");
+    const addMenuItemBtn = document.getElementById("addMenuItemBtn");
+
+    function createMenuItemCard(index) {
+      const card = document.createElement("div");
+      card.className = "menu-item-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 space-y-4 fade-up show";
+      card.dataset.index = index;
+      card.innerHTML = `
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-semibold text-amber-400">Dish ${index + 1}</span>
+          <button type="button" class="remove-menu-item text-slate-500 hover:text-red-400 transition text-lg" title="Remove dish">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Dish Name *</label>
+            <input type="text" class="dish-name form-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 text-sm transition" placeholder="e.g. Beef Suya">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Price *</label>
+            <input type="text" class="dish-price form-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 text-sm transition" placeholder="e.g. ₦3,500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">Short Description *</label>
+          <textarea class="dish-desc form-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 text-sm transition resize-none" rows="2" placeholder="e.g. Smoky grilled beef seasoned with spicy suya pepper."></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">Dish Cover Photo *</label>
+          <div class="dish-drop-zone border-2 border-dashed border-slate-600 hover:border-amber-400 rounded-xl p-5 text-center cursor-pointer transition duration-300 group">
+            <i class="fa-solid fa-image text-2xl text-slate-600 group-hover:text-amber-400 transition mb-2 block"></i>
+            <p class="text-slate-500 text-xs">Click or drag to upload photo</p>
+            <input type="file" class="dish-photo-input hidden" accept="image/*">
+          </div>
+          <div class="dish-photo-preview hidden mt-3">
+            <img class="dish-preview-img w-full h-40 object-cover rounded-xl border border-slate-700">
+            <button type="button" class="dish-remove-photo mt-2 text-xs text-red-400 hover:text-red-300 transition">
+              <i class="fa-solid fa-trash mr-1"></i>Remove photo
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Remove card
+      card.querySelector(".remove-menu-item").addEventListener("click", () => {
+        card.remove();
+        menuItemCount--;
+        renumberMenuCards();
+        updateAddButton();
+      });
+
+      // Photo upload
+      const dropZone = card.querySelector(".dish-drop-zone");
+      const fileInput = card.querySelector(".dish-photo-input");
+      const preview = card.querySelector(".dish-photo-preview");
+      const previewImg = card.querySelector(".dish-preview-img");
+      const removePhotoBtn = card.querySelector(".dish-remove-photo");
+
+      dropZone.addEventListener("click", () => fileInput.click());
+      dropZone.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.classList.add("border-amber-400"); });
+      dropZone.addEventListener("dragleave", () => dropZone.classList.remove("border-amber-400"));
+      dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("border-amber-400");
+        if (e.dataTransfer.files[0]) showDishPreview(e.dataTransfer.files[0], dropZone, preview, previewImg);
+      });
+      fileInput.addEventListener("change", () => {
+        if (fileInput.files[0]) showDishPreview(fileInput.files[0], dropZone, preview, previewImg);
+      });
+      removePhotoBtn.addEventListener("click", () => {
+        fileInput.value = "";
+        dropZone.classList.remove("hidden");
+        preview.classList.add("hidden");
+      });
+
+      return card;
+    }
+
+    function showDishPreview(file, dropZone, preview, previewImg) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImg.src = e.target.result;
+        dropZone.classList.add("hidden");
+        preview.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function renumberMenuCards() {
+      document.querySelectorAll(".menu-item-card").forEach((card, i) => {
+        card.querySelector("span.text-amber-400").textContent = `Dish ${i + 1}`;
+        card.dataset.index = i;
+      });
+    }
+
+    function updateAddButton() {
+      addMenuItemBtn.style.display = menuItemCount >= MAX_MENU_ITEMS ? "none" : "flex";
+    }
+
+    addMenuItemBtn.addEventListener("click", () => {
+      if (menuItemCount >= MAX_MENU_ITEMS) return;
+      const card = createMenuItemCard(menuItemCount);
+      menuItemsContainer.appendChild(card);
+      menuItemCount++;
+      updateAddButton();
+    });
+
+    // Auto-add first dish card on load
+    const firstCard = createMenuItemCard(0);
+    menuItemsContainer.appendChild(firstCard);
+    menuItemCount = 1;
+
+    // BUILD HOURS ROWS
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const container = document.getElementById("hoursContainer");
+
+        days.forEach((day) => {
+      const row = document.createElement("div");
+      row.className = "day-row";
+      row.innerHTML = `
+        <span class="day-label text-slate-300 text-sm font-medium">${day}</span>
+        <input type="time" class="open-time form-input bg-slate-800 border border-slate-700 rounded-xl px-3 py-3 text-white text-sm transition" data-day="${day}">
+        <input type="time" class="close-time form-input bg-slate-800 border border-slate-700 rounded-xl px-3 py-3 text-white text-sm transition" data-day="${day}">
+        <label class="day-closed flex items-center gap-2 text-slate-400 text-sm cursor-pointer whitespace-nowrap">
+          <input type="checkbox" class="closed-check accent-amber-500 w-4 h-4" data-day="${day}"> Closed
+        </label>
+      `;
+      container.appendChild(row);
+
+      // Toggle disabled on closed
+      row.querySelector(".closed-check").addEventListener("change", (e) => {
+        const inputs = row.querySelectorAll("input[type='time']");
+        inputs.forEach((inp) => {
+          inp.disabled = e.target.checked;
+          inp.classList.toggle("opacity-30", e.target.checked);
+        });
+      });
+    });
+
+    // PHOTO UPLOAD
+    const dropZone = document.getElementById("dropZone");
+    const photoInput = document.getElementById("photoInput");
+    const photoPreview = document.getElementById("photoPreview");
+    const previewImg = document.getElementById("previewImg");
+    const removePhoto = document.getElementById("removePhoto");
+
+    dropZone.addEventListener("click", () => photoInput.click());
+
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("border-amber-400");
+    });
+
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("border-amber-400"));
+
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("border-amber-400");
+      const file = e.dataTransfer.files[0];
+      if (file) showPreview(file);
+    });
+
+    photoInput.addEventListener("change", () => {
+      if (photoInput.files[0]) showPreview(photoInput.files[0]);
+    });
+
+    function showPreview(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImg.src = e.target.result;
+        dropZone.classList.add("hidden");
+        photoPreview.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    removePhoto.addEventListener("click", () => {
+      photoInput.value = "";
+      dropZone.classList.remove("hidden");
+      photoPreview.classList.add("hidden");
+    });
+
+    // FORM VALIDATION & SUBMIT
+    const submitBtn = document.getElementById("submitBtn");
+    const successModal = document.getElementById("successModal");
+
+    function collectHours() {
+      const result = [];
+      days.forEach((day) => {
+        const row = [...document.querySelectorAll(".day-row")].find(r => r.querySelector(`[data-day="${day}"]`));
+        if (!row) return;
+        const closedCheck = row.querySelector(".closed-check");
+        if (closedCheck && closedCheck.checked) {
+          result.push({ day, time: "Closed" });
+          return;
+        }
+        const openVal = row.querySelector(".open-time")?.value;
+        const closeVal = row.querySelector(".close-time")?.value;
+        if (openVal && closeVal) {
+          const fmt = (t) => {
+            const [h, m] = t.split(":").map(Number);
+            const suffix = h >= 12 ? "PM" : "AM";
+            const h12 = h % 12 || 12;
+            return m === 0 ? `${h12}${suffix}` : `${h12}:${String(m).padStart(2,"0")}${suffix}`;
+          };
+          result.push({ day, time: `${fmt(openVal)} - ${fmt(closeVal)}` });
+        } else {
+          result.push({ day, time: "" });
+        }
+      });
+      return result;
+    }
+
+    function collectMenuItems() {
+      const items = [];
+      document.querySelectorAll(".menu-item-card").forEach((card) => {
+        const name = card.querySelector(".dish-name")?.value.trim();
+        const price = card.querySelector(".dish-price")?.value.trim();
+        const desc = card.querySelector(".dish-desc")?.value.trim();
+        const previewImg = card.querySelector(".dish-preview-img");
+        const image = previewImg && !card.querySelector(".dish-photo-preview").classList.contains("hidden")
+          ? previewImg.src : "";
+        if (name || price) items.push({ name, price, desc, image });
+      });
+      return items;
+    }
+
+    function generateSlug(name) {
+      return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    }
+
+    submitBtn.addEventListener("click", () => {
+      const name = document.getElementById("vendorName").value.trim();
+      const category = document.getElementById("vendorCategory").value;
+      const desc = document.getElementById("vendorDesc").value.trim();
+      const city = document.getElementById("vendorCity").value.trim();
+      const address = document.getElementById("vendorAddress").value.trim();
+      const whatsapp = document.getElementById("vendorWhatsapp").value.trim();
+
+      if (!name || !category || !desc || !city || !address || !whatsapp) {
+        submitBtn.textContent = "⚠️ Please fill all required fields";
+        submitBtn.classList.add("bg-red-500");
+        submitBtn.classList.remove("bg-amber-500");
+        setTimeout(() => {
+          submitBtn.textContent = "Submit My Spot 🚀";
+          submitBtn.classList.remove("bg-red-500");
+          submitBtn.classList.add("bg-amber-500");
+        }, 2500);
+        return;
+      }
+
+      const coverImg = document.getElementById("previewImg");
+      const coverSrc = coverImg && !document.getElementById("photoPreview").classList.contains("hidden")
+        ? coverImg.src : "";
+
+      const submission = {
+        id: Date.now(),
+        submittedAt: new Date().toISOString(),
+        slug: generateSlug(name),
+        name,
+        category,
+        description: desc,
+        location: city,
+        fullLocation: address,
+        whatsapp: "234" + whatsapp.replace(/^0/, ""),
+        image: coverSrc,
+        hours: collectHours(),
+        menu: collectMenuItems(),
+        status: "pending"
+      };
+
+      const existing = JSON.parse(localStorage.getItem("chowspot_submissions") || "[]");
+      existing.push(submission);
+      localStorage.setItem("chowspot_submissions", JSON.stringify(existing));
+
+      // Show success modal
+      successModal.classList.remove("hidden");
+      successModal.classList.add("flex");
+    });
+
+    // Close modal on backdrop click
+    successModal.addEventListener("click", (e) => {
+      if (e.target === successModal || e.target.classList.contains("absolute")) {
+        successModal.classList.add("hidden");
+        successModal.classList.remove("flex");
+      }
+    });
+  </script>
+
+</body>
+</html>

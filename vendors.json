@@ -1,0 +1,539 @@
+{
+  "mama-nkechi": {
+    "name": "Mama Nkechi Suya",
+    "location": "Ring Road, Benin City",
+    "fullLocation": "Ring Road Junction, Benin City, Edo State, Nigeria.",
+    "whatsapp": "2349161882905",
+    "description": "Mama Nkechi Suya is one of Benin City's favorite late-night food spots famous for smoky grilled beef and spicy pepper mix.",
+    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200&auto=format&fit=crop",
+    "rating": "⭐ 4.8 Rating",
+    "reviews": "240+ Reviews",
+    "badge": "🔥 Top Rated Suya Spot",
+    "map": "https://www.google.com/maps?q=Ring+Road+Benin+City&output=embed",
+    "hours": [
+      {
+        "day": "Monday",
+        "time": "2PM - 11:30PM"
+      },
+      {
+        "day": "Tuesday",
+        "time": "2PM - 11:45PM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "3PM - 12AM"
+      },
+      {
+        "day": "Thursday",
+        "time": "3PM - 12:15AM"
+      },
+      {
+        "day": "Friday",
+        "time": "3PM - 1AM"
+      },
+      {
+        "day": "Saturday",
+        "time": "1PM - 1:30AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "4PM - 11PM"
+      }
+    ],
+    "menu": [
+      {
+        "name": "Beef Suya",
+        "price": "₦3,500",
+        "desc": "Smoky grilled beef seasoned with spicy suya pepper.",
+        "image": "https://www.chilipeppermadness.com/wp-content/uploads/2025/09/Suya-Recipe-SQ-500x375.jpg"
+      },
+      {
+        "name": "Chicken Suya",
+        "price": "₦4,000",
+        "desc": "Juicy spicy grilled chicken with onions and tomatoes.",
+        "image": "https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        "name": "Gizzard Mix",
+        "price": "₦3,000",
+        "desc": "Spicy stir-fried gizzard with peppers and onions.",
+        "image": "./Images/Gizzard-Mix.jfif"
+      },
+      {
+        "name": "Kilishi Strips",
+        "price": "₦3,500",
+        "desc": "Spicy dried beef strips coated in rich suya seasoning.",
+        "image": "./Images/Kilishi-Strips.webp"
+      },
+      {
+        "name": "Ram Suya",
+        "price": "₦5,500",
+        "desc": "Tender ram meat grilled over open flames with spicy suya pepper.",
+        "image": "./Images/Ram-Suya.webp"
+      },
+      {
+        "name": "Grilled Catfish",
+        "price": "₦6,500",
+        "desc": "Whole catfish grilled with smoky spices and served with pepper sauce.",
+        "image": "./Images/Tasty-Grilled-Catfish2.jfif"
+      }
+    ],
+    "customerReviews": [
+      {
+        "name": "Tunde Adebayo",
+        "review": "Easily one of the best suya spots in Benin."
+      },
+      {
+        "name": "Amaka Obi",
+        "review": "The smoky flavor is absolutely incredible."
+      }
+    ]
+  },
+  "bukka-royale": {
+    "name": "Bukka Royale",
+    "location": "GRA, Benin City",
+    "fullLocation": "GRA District, Benin City, Edo State, Nigeria.",
+    "whatsapp": "2349029958371",
+    "description": "Bukka Royale is known for delicious smoky party jollof rice and authentic Nigerian local meals.",
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop",
+    "rating": "⭐ 4.7 Rating",
+    "reviews": "180+ Reviews",
+    "badge": "🍛 Popular Jollof Spot",
+    "map": "https://www.google.com/maps?q=GRA+Benin+City&output=embed",
+    "hours": [
+      {
+        "day": "Monday",
+        "time": "9AM - 11PM"
+      },
+      {
+        "day": "Tuesday",
+        "time": "9AM - 11:15PM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "9:30AM - 11:30PM"
+      },
+      {
+        "day": "Thursday",
+        "time": "10AM - 11:50PM"
+      },
+      {
+        "day": "Friday",
+        "time": "10:15AM - 11:55PM"
+      },
+      {
+        "day": "Saturday",
+        "time": "11AM - 12:15AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "1:30PM - 12:30AM"
+      }
+    ],
+    "menu": [
+      {
+        "name": "Party Jollof",
+        "price": "₦4,500",
+        "desc": "Smoky Nigerian jollof rice with turkey, packed with rich flavors.",
+        "image": "./Images/Party-Jollof.jpg"
+      },
+      {
+        "name": "Peppered Turkey",
+        "price": "₦4,500",
+        "desc": "Spicy grilled turkey with rich pepper sauce.",
+        "image": "./Images/Peppered-Turkey.jfif"
+      },
+      {
+        "name": "Egusi Soup",
+        "price": "₦4,500",
+        "desc": "Traditional egusi served with pounded yam.",
+        "image": "./Images/Egusi-Soup3.jfif"
+      },
+      {
+        "name": "Goat Meat Pepper Soup",
+        "price": "₦5,500",
+        "desc": "Hot spicy goat meat pepper soup cooked with local spices.",
+        "image": "./Images/Goat-Meat-Pepper-Soup.webp"
+      },
+      {
+        "name": "Tasty Native Rice & Fish",
+        "price": "₦5,000",
+        "desc": "Rich palm-oil native rice served with smoky grilled fish.",
+        "image": "./Images/Native-Rice-and-Fish.jpg"
+      },
+      {
+        "name": "Banga Soup & Starch",
+        "price": "₦6,000",
+        "desc": "Traditional banga soup served with smooth Delta-style starch.",
+        "image": "./Images/Banga-Soup-and-Starch.jpg"
+      }
+    ],
+    "customerReviews": [
+      {
+        "name": "Chinedu Okafor",
+        "review": "Best jollof rice I've had in Benin City."
+      },
+      {
+        "name": "Blessing Eze",
+        "review": "Their turkey is spicy and perfectly grilled."
+      }
+    ]
+  },
+  "shawarma-hub": {
+    "name": "Shawarma Hub",
+    "location": "Sapele Road, Benin City",
+    "fullLocation": "Sapele Road, Benin City, Edo State, Nigeria.",
+    "whatsapp": "2349154428230",
+    "description": "Seyi's Shawarma Hub serves creamy loaded shawarmas packed with juicy chicken and spicy sauce.",
+    "image": "./Images/Shawarma-Hub-Cover5.jfif",
+    "rating": "⭐ 4.9 Rating",
+    "reviews": "320+ Reviews",
+    "badge": "🌯 Best Shawarma In Town",
+    "map": "https://www.google.com/maps?q=Sapele+Road+Benin+City&output=embed",
+    "hours": [
+      {
+        "day": "Monday",
+        "time": "1PM - 11PM"
+      },
+      {
+        "day": "Tuesday",
+        "time": "1PM - 11:15PM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "1PM - 11:30PM"
+      },
+      {
+        "day": "Thursday",
+        "time": "1PM - 11:50PM"
+      },
+      {
+        "day": "Friday",
+        "time": "1:30PM - 12:45AM"
+      },
+      {
+        "day": "Saturday",
+        "time": "12PM - 1AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "12PM - 1:30AM"
+      }
+    ],
+    "menu": [
+      {
+        "name": "Chicken Shawarma",
+        "price": "₦3,000",
+        "desc": "Creamy chicken shawarma with tasty sausages.",
+        "image": "./Images/Chicken-Shawarma4.jfif"
+      },
+      {
+        "name": "Beef Shawarma",
+        "price": "₦3,500",
+        "desc": "Loaded beef shawarma with spicy sauce and fresh veggies.",
+        "image": "./Images/Beef-Shawarma2.jpg"
+      },
+      {
+        "name": "Special Combo",
+        "price": "₦5,000",
+        "desc": "Shawarma combo with fries, drink and extra cheesy goodness.",
+        "image": "./Images/Shawarma-Combo2.jfif"
+      },
+      {
+        "name": "Loaded Shawarma Pizza",
+        "price": "₦6,500",
+        "desc": "Cheesy pizza loaded with spicy shawarma meat and creamy drizzle.",
+        "image": "./Images/Shawarma-Pizza2.webp"
+      },
+      {
+        "name": "Cheesy Hot Dog Deluxe",
+        "price": "₦3,800",
+        "desc": "Grilled sausage loaded with veggies, creamy sauce, and spicy ketchup.",
+        "image": "./Images/Loaded-Hotdog.jfif"
+      },
+      {
+        "name": "Spicy Chicken Wings",
+        "price": "₦4,500",
+        "desc": "Crispy chicken wings tossed in smoky spicy sauce.",
+        "image": "./Images/Spicy-Chicken-Wings.jfif"
+      }
+    ],
+    "customerReviews": [
+      {
+        "name": "Samuel Peters",
+        "review": "The best shawarma spot around Sapele Road."
+      },
+      {
+        "name": "Jennifer Michael",
+        "review": "Very creamy and generously filled shawarmas."
+      }
+    ]
+  },
+  "amaka-bole": {
+    "name": "Amaka Bole Spot",
+    "badge": "Bole & Grill",
+    "image": "./Images/Amaka-Bole-Spot.jfif",
+    "fullLocation": "Ada George Road, Port Harcourt, Rivers State, Nigeria.",
+    "rating": "⭐ 4.7 Rating",
+    "reviews": "210+ Happy Customers",
+    "description": "Famous for smoky bole, spicy fish, and late-night grill vibes loved across Port Harcourt.",
+    "whatsapp": "2348011122233",
+    "map": "https://maps.google.com/maps?q=Port%20Harcourt&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    "hours": [
+      {
+        "day": "Monday",
+        "time": "10AM - 10PM"
+      },
+      {
+        "day": "Tuesday",
+        "time": "10AM - 10PM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "10AM - 10PM"
+      },
+      {
+        "day": "Thursday",
+        "time": "10AM - 10PM"
+      },
+      {
+        "day": "Friday",
+        "time": "10AM - 11PM"
+      },
+      {
+        "day": "Saturday",
+        "time": "11AM - 12AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "12PM - 11PM"
+      }
+    ],
+    "menu": [
+      {
+        "name": "Bole & Fish",
+        "price": "₦4,500",
+        "desc": "Roasted plantain served with spicy grilled fish sauce.",
+        "image": "./Images/Bole-and-Fish.jfif"
+      },
+      {
+        "name": "Peppered Snail",
+        "price": "₦5,000",
+        "desc": "Freshly grilled snail tossed in spicy pepper sauce.",
+        "image": "./Images/Peppered-Snail.jfif"
+      },
+      {
+        "name": "Peppered Goat Meat",
+        "price": "₦5,500",
+        "desc": "Tender goat meat stir-fried in smoky spicy pepper sauce.",
+        "image": "./Images/Peppered-Goat-Meat2.jpg"
+      },
+      {
+        "name": "Roasted Yam & Sauce",
+        "price": "₦3,800",
+        "desc": "Soft roasted yam served with rich spicy fish sauce.",
+        "image": "./Images/Roasted-Yam.jfif"
+      },
+      {
+        "name": "Catfish Pepper Soup",
+        "price": "₦6,000",
+        "desc": "Hot spicy catfish pepper soup packed with traditional spices.",
+        "image": "./Images/Catfish-Pepper-Soup.jfif"
+      },
+      {
+        "name": "Peppered Turkey & Rice",
+        "price": "₦5,200",
+        "desc": "Juicy grilled turkey coated in smoky pepper sauce.",
+        "image": "./Images/Peppered-Turkey-and-Rice.jfif"
+      }
+    ],
+    "customerReviews": [
+      {
+        "name": "Sandra",
+        "review": "Best bole spot I've visited in Port Harcourt. The fish was incredible."
+      },
+      {
+        "name": "David",
+        "review": "Amazing local flavors and very affordable meals."
+      }
+    ]
+  },
+  "iya-basira": {
+    "name": "Iya Basira Kitchen",
+    "badge": "Local Dishes",
+    "image": "./Images/Iya-Basira-Kitchen.jfif",
+    "fullLocation": "Herbert Macaulay Way, Yaba, Lagos State, Nigeria.",
+    "rating": "⭐ 4.8 Rating",
+    "reviews": "340+ Happy Customers",
+    "description": "Authentic Yoruba local dishes prepared with rich homemade recipes and traditional flavors.",
+    "whatsapp": "2348099988877",
+    "map": "https://maps.google.com/maps?q=Lagos&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    "hours": [
+      {
+        "day": "Monday",
+        "time": "9AM - 10PM"
+      },
+      {
+        "day": "Tuesday",
+        "time": "9AM - 10PM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "9AM - 10PM"
+      },
+      {
+        "day": "Thursday",
+        "time": "9AM - 11PM"
+      },
+      {
+        "day": "Friday",
+        "time": "9AM - 11:30PM"
+      },
+      {
+        "day": "Saturday",
+        "time": "10AM - 11:45PM"
+      },
+      {
+        "day": "Sunday",
+        "time": "Closed"
+      }
+    ],
+    "menu": [
+      {
+        "name": "Amala & Ewedu",
+        "price": "₦4,000",
+        "desc": "Soft amala served with rich ewedu and assorted meat.",
+        "image": "./Images/Amala-and-Ewedu.jfif"
+      },
+      {
+        "name": "Egusi Soup",
+        "price": "₦4,500",
+        "desc": "Traditional egusi soup with pounded yam and assorted meat.",
+        "image": "./Images/Egusi-Soup2.jfif"
+      },
+      {
+        "name": "Ofada Rice & Ayamase",
+        "price": "₦5,500",
+        "desc": "Local ofada rice served with rich green ayamase sauce and assorted meat.",
+        "image": "./Images/Ofada-Rice-and-Ayamase.jpg"
+      },
+      {
+        "name": "Efo Riro & Pounded Yam",
+        "price": "₦5,000",
+        "desc": "Fresh spinach stew cooked with assorted meat served with soft pounded yam.",
+        "image": "./Images/Efo-Riro-and-Pounded-Yam.jfif"
+      },
+      {
+        "name": "Gbegiri & Amala Combo",
+        "price": "₦4,800",
+        "desc": "Smooth gbegiri soup paired with amala and rich stew.",
+        "image": "./Images/Gbegiri-and-Amala-Combo.jfif"
+      },
+      {
+        "name": "Designer Stew & Rice",
+        "price": "₦5,200",
+        "desc": "White rice served with rich designer stew packed with assorted proteins.",
+        "image": "./Images/Designer-Rice-Stew.jpg"
+      }
+    ],
+    "customerReviews": [
+      {
+        "name": "Kemi",
+        "review": "The amala tasted exactly like homemade food from Ibadan."
+      },
+      {
+        "name": "Tunde",
+        "review": "Very affordable and the portions are massive."
+      }
+    ]
+  },
+  "chops-peppers": {
+    "name": "Chops & Peppers",
+    "badge": "Snacks & Chops",
+    "image": "./Images/Chops-and-Peppers.jfif",
+    "fullLocation": "Wuse 2 District, Abuja, Federal Capital Territory, Nigeria.",
+    "rating": "⭐ 4.6 Rating",
+    "reviews": "180+ Happy Customers",
+    "description": "Your go-to late-night spot for crunchy small chops, samosas, spring rolls, and spicy grills.",
+    "whatsapp": "2348077766655",
+    "map": "https://maps.google.com/maps?q=Abuja&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    "hours": [
+      {
+        "day": "Monday",
+        "time": "11AM - 11PM"
+      },
+      {
+        "day": "Tuesday",
+        "time": "10:30AM - 11:15PM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "10:50AM - 11:30PM"
+      },
+      {
+        "day": "Thursday",
+        "time": "11AM - 11:50PM"
+      },
+      {
+        "day": "Friday",
+        "time": "11AM - 12:30AM"
+      },
+      {
+        "day": "Saturday",
+        "time": "12PM - 1AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "2PM - 10PM"
+      }
+    ],
+    "menu": [
+      {
+        "name": "Small Chops Combo",
+        "price": "₦3,500",
+        "desc": "Samosa, spring rolls, puff puff, and spicy wings combo.",
+        "image": "./Images/Small-Chops-Combo.jpg"
+      },
+      {
+        "name": "Peppered Chicken",
+        "price": "₦4,500",
+        "desc": "Spicy grilled chicken coated in rich pepper sauce.",
+        "image": "./Images/Pepper-Chicken.jfif"
+      },
+      {
+        "name": "Suya Wings Basket",
+        "price": "₦4,500",
+        "desc": "Crispy chicken wings coated in spicy suya pepper seasoning.",
+        "image": "./Images/Nigerian-style-suya-spice-wings-on-a-plate-with-red-onions-and-herbs.webp"
+      },
+      {
+        "name": "Puff Puff & Gizzard",
+        "price": "₦4,000",
+        "desc": "Soft puff puff served with spicy stir-fried peppered gizzard.",
+        "image": "./Images/Puff-Puff-and-Peppered-Gizzard-Combo.jfif"
+      },
+      {
+        "name": "Peppered Turkey Bites",
+        "price": "₦5,500",
+        "desc": "Juicy turkey bites tossed in rich smoky pepper sauce.",
+        "image": "./Images/Peppered-Turkey-Bite.jfif"
+      },
+      {
+        "name": "BBQ Grilled Beef Skewers",
+        "price": "₦4,800",
+        "desc": "Smoky grilled beef skewers glazed with spicy barbecue sauce.",
+        "image": "./Images/BBQ-Beef-Skewers.jpg"
+      }
+    ],
+    "customerReviews": [
+      {
+        "name": "Blessing",
+        "review": "Very crunchy chops and the pepper sauce is top-notch."
+      },
+      {
+        "name": "Michael",
+        "review": "Best late-night food spot in Abuja honestly."
+      }
+    ]
+  }
+}

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChowSpot Admin — Vendor Submissions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.show { opacity: 1; transform: translateY(0); }
+
+    .status-pending  { background: rgba(245,158,11,0.12); color: #f59e0b; border-color: rgba(245,158,11,0.3); }
+    .status-approved { background: rgba(34,197,94,0.12);  color: #22c55e; border-color: rgba(34,197,94,0.3); }
+    .status-rejected { background: rgba(239,68,68,0.12);  color: #ef4444; border-color: rgba(239,68,68,0.3); }
+
+    .code-block {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      white-space: pre;
+      overflow-x: auto;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 20px;
+      color: #94a3b8;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .code-key   { color: #f59e0b; }
+    .code-str   { color: #86efac; }
+    .code-num   { color: #93c5fd; }
+    .code-punct { color: #64748b; }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 99px; }
+
+    .tab-btn { transition: all 0.2s; }
+    .tab-btn.active { background: #f59e0b; color: #000; }
+
+    .vendor-card { transition: border-color 0.2s, box-shadow 0.2s; }
+    .vendor-card:hover { border-color: #f59e0b40; }
+
+    /* LOGIN SCREEN */
+    #loginScreen {
+      position: fixed; inset: 0; z-index: 200;
+      background: #020617;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    #loginScreen.hidden { display: none; }
+
+    .login-input:focus {
+      outline: none;
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245,158,11,0.15);
+    }
+
+    #loginCard {
+      animation: loginFadeIn 0.5s ease forwards;
+    }
+    @keyframes loginFadeIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .shake {
+      animation: shake 0.4s ease;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%       { transform: translateX(-8px); }
+      40%       { transform: translateX(8px); }
+      60%       { transform: translateX(-6px); }
+      80%       { transform: translateX(6px); }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-white min-h-screen">
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen">
+    <div id="loginCard" class="w-full max-w-md">
+
+      <!-- Logo -->
+      <div class="flex flex-col items-center gap-3 mb-5 mt-5">
+        <a href="index.html" class="text-2xl font-bold flex items-center justify-center gap-2">
+          <span class="text-white text-3xl">🥘</span>
+          <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+            ChowSpot
+          </span>
+        </a>
+        <span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1 rounded-full">Admin Portal</span>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl">
+
+        <h1 class="text-2xl font-bold mb-1">Welcome back</h1>
+        <p class="text-slate-400 text-sm mb-8">Sign in to access the admin dashboard.</p>
+
+        <div class="space-y-5">
+
+          <!-- Username -->
+          <div>
+            <label class="block text-sm font-medium text-slate-300 mb-2">Username</label>
+            <div class="relative">
+              <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+              <input type="text" id="loginUsername" placeholder="Enter username"
+                class="login-input w-full bg-slate-800 border border-slate-700 rounded-2xl pl-11 pr-5 py-4 text-white placeholder:text-slate-500 transition">
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div>
+            <label class="block text-sm font-medium text-slate-300 mb-2">Password</label>
+            <div class="relative">
+              <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+              <input type="password" id="loginPassword" placeholder="Enter password"
+                class="login-input w-full bg-slate-800 border border-slate-700 rounded-2xl pl-11 pr-12 py-4 text-white placeholder:text-slate-500 transition">
+              <button type="button" id="togglePassword"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition text-sm">
+                <i class="fa-solid fa-eye" id="togglePasswordIcon"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Error message -->
+          <p id="loginError" class="hidden text-red-400 text-sm font-medium">
+            <i class="fa-solid fa-circle-exclamation mr-1"></i>Incorrect username or password.
+          </p>
+
+          <!-- Login button -->
+          <button id="loginBtn"
+            class="w-full bg-amber-500 hover:bg-amber-400 text-black font-bold py-4 rounded-2xl transition duration-300 hover:scale-[1.01] hover:shadow-amber-500/30 hover:shadow-lg text-base mt-2">
+            Sign In <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+
+        </div>
+
+        <p class="text-slate-600 text-xs text-center mt-8">
+          This portal is restricted to ChowSpot administrators only.
+        </p>
+
+      </div>
+    </div>
+  </div>
+  <!-- END LOGIN SCREEN -->
+
+
+  <!-- TOPBAR -->
+  <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/20">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="text-2xl font-bold flex items-center gap-2">
+  
+          <span class="text-white text-3xl">🥘</span>
+
+          <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+            ChowSpot
+          </span>
+
+        </a>
+        <span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1 rounded-full">Admin</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="totalBadge" class="text-slate-400 text-sm"></span>
+        <button id="exportBtn"
+          class="text-xs text-green-400 hover:text-green-300 border border-green-500/30 hover:border-green-400 px-4 py-2 rounded-xl transition duration-200 font-semibold">
+          <i class="fa-solid fa-file-arrow-down mr-1"></i> Export vendors.json
+        </button>
+        <button id="clearAllBtn"
+          class="text-xs text-slate-500 hover:text-red-400 border border-slate-700 hover:border-red-400 px-4 py-2 rounded-xl transition duration-200">
+          <i class="fa-solid fa-trash mr-1"></i> Clear All
+        </button>
+        <button id="logoutBtn"
+          class="text-xs text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-xl transition duration-200">
+          <i class="fa-solid fa-right-from-bracket mr-1"></i> Sign Out
+        </button>
+        <a href="index.html" class="bg-amber-500 hover:bg-amber-400 text-black font-semibold text-sm px-5 py-2.5 rounded-xl transition duration-300 hover:scale-105">
+          ← Back to Site
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="py-14 border-b border-slate-800/60">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="fade-up show">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-2">Vendor Submissions <span class="text-amber-400">📋</span></h1>
+        <p class="text-slate-400">Review registrations, inspect details, and generate ready-to-paste vendor code for <code class="text-amber-400 bg-slate-800 px-2 py-0.5 rounded-lg text-sm">app.js</code>.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FILTER TABS -->
+  <section class="py-6 border-b border-slate-800/40 sticky top-[69px] z-40 bg-slate-950/90 backdrop-blur-lg">
+    <div class="max-w-7xl mx-auto px-6 flex items-center gap-3 flex-wrap">
+      <button class="tab-btn active px-5 py-2 rounded-xl text-sm font-semibold bg-slate-800" data-filter="all">All</button>
+      <button class="tab-btn px-5 py-2 rounded-xl text-sm font-semibold bg-slate-800" data-filter="pending">Pending</button>
+      <button class="tab-btn px-5 py-2 rounded-xl text-sm font-semibold bg-slate-800" data-filter="approved">Approved</button>
+      <button class="tab-btn px-5 py-2 rounded-xl text-sm font-semibold bg-slate-800" data-filter="rejected">Rejected</button>
+    </div>
+  </section>
+
+
+  <!-- SUBMISSIONS LIST -->
+  <main class="max-w-7xl mx-auto px-6 py-10">
+
+    <!-- Empty state -->
+    <div id="emptyState" class="hidden text-center py-32 fade-up show">
+      <div class="text-6xl mb-6">📭</div>
+      <h2 class="text-2xl font-bold mb-3">No submissions yet</h2>
+      <p class="text-slate-400 mb-8">Once vendors fill out the registration form, their submissions will appear here.</p>
+      <a href="register.html" class="inline-block bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-4 rounded-2xl transition duration-300">
+        Go to Register Form →
+      </a>
+    </div>
+
+    <div id="submissionsGrid" class="space-y-8"></div>
+
+  </main>
+
+
+  <!-- CODE MODAL -->
+  <div id="codeModal" class="fixed inset-0 z-[80] hidden items-center justify-center px-4">
+    <div class="absolute inset-0 bg-black/75 backdrop-blur-sm" id="codeModalBackdrop"></div>
+    <div class="relative bg-slate-900 border border-slate-700 rounded-3xl p-8 max-w-3xl w-full shadow-2xl max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-xl font-bold">Vendor Code</h2>
+          <p class="text-slate-400 text-sm mt-1">Paste this into the <code class="text-amber-400">vendors</code> object in <code class="text-amber-400">app.js</code></p>
+        </div>
+        <button id="codeModalClose" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-lg transition">✕</button>
+      </div>
+      <div id="codeOutput" class="code-block flex-1 overflow-auto"></div>
+      <div class="flex gap-3 mt-6">
+        <button id="copyCodeBtn" class="flex-1 bg-amber-500 hover:bg-amber-400 text-black font-bold py-3 rounded-2xl transition duration-300 hover:scale-[1.01]">
+          <i class="fa-solid fa-copy mr-2"></i>Copy Code
+        </button>
+        <button id="codeModalClose2" class="flex-1 border border-slate-700 hover:border-slate-500 text-slate-400 py-3 rounded-2xl transition duration-300">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- CONFIRM MODAL -->
+  <div id="confirmModal" class="fixed inset-0 z-[90] hidden items-center justify-center px-4">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div class="relative bg-slate-900 border border-slate-700 rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
+      <div class="text-5xl mb-4" id="confirmIcon">⚠️</div>
+      <h2 class="text-xl font-bold mb-2" id="confirmTitle">Are you sure?</h2>
+      <p class="text-slate-400 text-sm mb-8" id="confirmMsg"></p>
+      <div class="flex gap-3">
+        <button id="confirmYes" class="flex-1 bg-red-500 hover:bg-red-400 text-white font-bold py-3 rounded-2xl transition">Yes, do it</button>
+        <button id="confirmNo" class="flex-1 border border-slate-700 hover:border-slate-500 text-slate-400 py-3 rounded-2xl transition">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+ 
+    // DATA
+    const KEY = "chowspot_submissions";
+
+    function load() {
+      return JSON.parse(localStorage.getItem(KEY) || "[]");
+    }
+
+    function save(data) {
+      localStorage.setItem(KEY, JSON.stringify(data));
+    }
+
+    const APPROVED_KEY = "chowspot_approved_vendors";
+
+    function loadApproved() {
+      return JSON.parse(localStorage.getItem(APPROVED_KEY) || "{}");
+    }
+
+    function saveApproved(obj) {
+      localStorage.setItem(APPROVED_KEY, JSON.stringify(obj));
+    }
+
+    function submissionToVendorObj(v) {
+      return {
+        name: v.name,
+        location: v.location || "",
+        fullLocation: v.fullLocation || "",
+        whatsapp: v.whatsapp || "",
+        description: v.description || "",
+        image: v.image || "",
+        rating: "⭐ – Rating",
+        reviews: "– Reviews",
+        badge: "🍽️ " + (v.category || "Food"),
+        map: "https://www.google.com/maps?q=" + encodeURIComponent(v.fullLocation || v.location || "") + "&output=embed",
+        hours: v.hours || [],
+        menu: (v.menu || []).map(item => ({
+          name: item.name || "",
+          price: item.price || "",
+          desc: item.desc || "",
+          image: item.image || ""
+        })),
+        customerReviews: []
+      };
+    }
+
+    function updateStatus(id, status) {
+      const data = load();
+      const item = data.find(s => s.id === id);
+      if (item) item.status = status;
+      save(data);
+
+      // Sync approved vendors store
+      const approved = loadApproved();
+      if (status === "approved" && item) {
+        const slug = item.slug || slugify(item.name);
+        approved[slug] = submissionToVendorObj(item);
+        saveApproved(approved);
+      } else if ((status === "rejected") && item) {
+        const slug = item.slug || slugify(item.name);
+        delete approved[slug];
+        saveApproved(approved);
+      }
+
+      render();
+    }
+
+    function deleteSubmission(id) {
+      const data = load();
+      const item = data.find(s => s.id === id);
+      if (item) {
+        // Remove from approved store too
+        const approved = loadApproved();
+        const slug = item.slug || slugify(item.name);
+        delete approved[slug];
+        saveApproved(approved);
+      }
+      save(data.filter(s => s.id !== id));
+      render();
+    }
+
+
+
+    // CODE GENERATOR
+    function escapeStr(s) {
+      return (s || "").replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n");
+    }
+
+    function generateVendorCode(v) {
+      const slug = v.slug || slugify(v.name);
+      const menuLines = (v.menu || []).map(item => `      {
+        name: "${escapeStr(item.name)}",
+        price: "${escapeStr(item.price)}",
+        desc: "${escapeStr(item.desc)}",
+        image: "${escapeStr(item.image)}"
+      }`).join(",\n");
+
+      const hoursLines = (v.hours || []).map(h =>
+        `      { day: "${h.day}", time: "${h.time}" }`
+      ).join(",\n");
+
+      return `  "${slug}": {
+
+    name: "${escapeStr(v.name)}",
+    location: "${escapeStr(v.location)}",
+    fullLocation: "${escapeStr(v.fullLocation)}",
+    whatsapp: "${escapeStr(v.whatsapp)}",
+    description: "${escapeStr(v.description)}",
+    image: "${escapeStr(v.image)}",
+    rating: "⭐ – Rating",
+    reviews: "– Reviews",
+    badge: "🍽️ ${escapeStr(v.category)}",
+    map: "https://www.google.com/maps?q=${encodeURIComponent(v.fullLocation || v.location)}&output=embed",
+    hours: [
+${hoursLines}
+    ],
+    menu: [
+${menuLines}
+    ],
+    customerReviews: []
+
+  }`;
+    }
+
+    function slugify(name) {
+      return (name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    }
+
+
+    
+    // RENDER
+    let currentFilter = "all";
+
+    function formatDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    }
+
+    function render() {
+      const allData = load();
+      const filtered = currentFilter === "all" ? allData : allData.filter(s => s.status === currentFilter);
+
+      const totalBadge = document.getElementById("totalBadge");
+      totalBadge.textContent = `${allData.length} submission${allData.length !== 1 ? "s" : ""}`;
+
+      const grid = document.getElementById("submissionsGrid");
+      const emptyState = document.getElementById("emptyState");
+
+      if (allData.length === 0) {
+        emptyState.classList.remove("hidden");
+        grid.innerHTML = "";
+        return;
+      }
+      emptyState.classList.add("hidden");
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="text-center py-20 text-slate-500">No ${currentFilter} submissions.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(v => {
+        const status = v.status || "pending";
+        const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
+        const menuHtml = (v.menu || []).map(item => `
+          <div class="flex-shrink-0 w-44 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+            ${item.image
+              ? `<img src="${item.image}" class="w-full h-28 object-cover">`
+              : `<div class="w-full h-28 bg-slate-800 flex items-center justify-center text-3xl">🍽️</div>`}
+            <div class="p-3">
+              <p class="font-semibold text-sm truncate">${item.name || "—"}</p>
+              <p class="text-amber-400 text-xs font-bold">${item.price || ""}</p>
+              <p class="text-slate-500 text-xs mt-1 line-clamp-2">${item.desc || ""}</p>
+            </div>
+          </div>
+        `).join("");
+
+        const hoursHtml = (v.hours || []).filter(h => h.time).map(h => `
+          <div class="flex justify-between items-center py-2 border-b border-slate-800 last:border-0 text-sm">
+            <span class="text-slate-400">${h.day}</span>
+            <span class="${h.time === 'Closed' ? 'text-red-400' : 'text-amber-400'} font-medium">${h.time}</span>
+          </div>
+        `).join("");
+
+        return `
+        <div class="vendor-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden fade-up show" data-id="${v.id}">
+
+          <!-- Card header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-8 pt-8 pb-6 border-b border-slate-800">
+            <div class="flex items-start gap-4">
+              ${v.image
+                ? `<img src="${v.image}" class="w-16 h-16 rounded-2xl object-cover border border-slate-700 shrink-0">`
+                : `<div class="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-2xl shrink-0">🍽️</div>`}
+              <div>
+                <h2 class="text-xl font-bold">${v.name}</h2>
+                <p class="text-slate-400 text-sm mt-0.5"><i class="fa-solid fa-location-dot text-amber-400 mr-1"></i>${v.location || "—"}</p>
+                <p class="text-slate-500 text-xs mt-1">${formatDate(v.submittedAt)}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="status-${status} border rounded-full px-3 py-1 text-xs font-bold">${statusLabel}</span>
+              <span class="bg-slate-800 text-slate-400 text-xs px-3 py-1 rounded-full capitalize">${v.category || "—"}</span>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="px-8 py-6 space-y-8">
+
+            <!-- Basic details -->
+            <div class="grid sm:grid-cols-2 gap-6 text-sm">
+              <div>
+                <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">Description</p>
+                <p class="text-slate-300 leading-relaxed">${v.description || "—"}</p>
+              </div>
+              <div class="space-y-3">
+                <div>
+                  <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">Full Address</p>
+                  <p class="text-slate-300">${v.fullLocation || "—"}</p>
+                </div>
+                <div>
+                  <p class="text-slate-500 text-xs uppercase tracking-wide mb-1">WhatsApp</p>
+                  <a href="https://wa.me/${v.whatsapp}" target="_blank" class="text-green-400 hover:text-green-300 transition">+${v.whatsapp || "—"}</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Menu highlights -->
+            ${v.menu && v.menu.length > 0 ? `
+            <div>
+              <p class="text-slate-500 text-xs uppercase tracking-wide mb-4">Menu Highlights (${v.menu.length})</p>
+              <div class="flex gap-4 overflow-x-auto pb-2">${menuHtml}</div>
+            </div>` : ""}
+
+            <!-- Opening hours -->
+            ${v.hours && v.hours.some(h => h.time) ? `
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <p class="text-slate-500 text-xs uppercase tracking-wide mb-3">Opening Hours</p>
+                <div class="bg-slate-950 rounded-2xl px-5 py-2">${hoursHtml}</div>
+              </div>
+            </div>` : ""}
+
+          </div>
+
+          <!-- Actions -->
+          <div class="px-8 pb-8 flex flex-wrap gap-3">
+            <button class="generate-code-btn bg-amber-500 hover:bg-amber-400 text-black font-bold px-6 py-3 rounded-2xl transition duration-300 hover:scale-[1.02] text-sm" data-id="${v.id}">
+              <i class="fa-solid fa-code mr-2"></i>Generate Code
+            </button>
+            ${status !== "approved" ? `<button class="approve-btn bg-green-500/10 hover:bg-green-500/20 border border-green-500/30 text-green-400 font-semibold px-6 py-3 rounded-2xl transition duration-300 text-sm" data-id="${v.id}">
+              <i class="fa-solid fa-check mr-2"></i>Approve
+            </button>` : ""}
+            ${status !== "rejected" ? `<button class="reject-btn bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 font-semibold px-6 py-3 rounded-2xl transition duration-300 text-sm" data-id="${v.id}">
+              <i class="fa-solid fa-xmark mr-2"></i>Reject
+            </button>` : ""}
+            <button class="delete-btn ml-auto border border-slate-700 hover:border-red-400 hover:text-red-400 text-slate-500 px-6 py-3 rounded-2xl transition duration-300 text-sm" data-id="${v.id}">
+              <i class="fa-solid fa-trash mr-2"></i>Delete
+            </button>
+          </div>
+
+        </div>`;
+      }).join("");
+
+      // Bind action buttons
+      grid.querySelectorAll(".generate-code-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const v = load().find(s => s.id == btn.dataset.id);
+          if (!v) return;
+          showCodeModal(v);
+        });
+      });
+
+      grid.querySelectorAll(".approve-btn").forEach(btn => {
+        btn.addEventListener("click", () => updateStatus(Number(btn.dataset.id), "approved"));
+      });
+
+      grid.querySelectorAll(".reject-btn").forEach(btn => {
+        btn.addEventListener("click", () => updateStatus(Number(btn.dataset.id), "rejected"));
+      });
+
+      grid.querySelectorAll(".delete-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          showConfirm(
+            "Delete this submission?",
+            "This action cannot be undone.",
+            "🗑️",
+            () => deleteSubmission(Number(btn.dataset.id))
+          );
+        });
+      });
+    }
+
+
+    
+    // CODE MODAL
+    function showCodeModal(v) {
+      const code = generateVendorCode(v);
+      const output = document.getElementById("codeOutput");
+
+      // Syntax-highlight
+      output.innerHTML = code
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"([^"]+)":/g, '<span class="code-key">"$1"</span>:')
+        .replace(/: "([^"]*)"/g, ': <span class="code-str">"$1"</span>')
+        .replace(/\b(\d+)\b/g, '<span class="code-num">$1</span>')
+        .replace(/([{}[\],])/g, '<span class="code-punct">$1</span>');
+
+      document.getElementById("codeModal").classList.remove("hidden");
+      document.getElementById("codeModal").classList.add("flex");
+
+      document.getElementById("copyCodeBtn").onclick = () => {
+        navigator.clipboard.writeText(code).then(() => {
+          const btn = document.getElementById("copyCodeBtn");
+          btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Copied!';
+          btn.classList.add("bg-green-500");
+          btn.classList.remove("bg-amber-500");
+          setTimeout(() => {
+            btn.innerHTML = '<i class="fa-solid fa-copy mr-2"></i>Copy Code';
+            btn.classList.remove("bg-green-500");
+            btn.classList.add("bg-amber-500");
+          }, 2000);
+        });
+      };
+    }
+
+    function closeCodeModal() {
+      document.getElementById("codeModal").classList.add("hidden");
+      document.getElementById("codeModal").classList.remove("flex");
+    }
+
+    document.getElementById("codeModalClose").addEventListener("click", closeCodeModal);
+    document.getElementById("codeModalClose2").addEventListener("click", closeCodeModal);
+    document.getElementById("codeModalBackdrop").addEventListener("click", closeCodeModal);
+
+
+    
+    // CONFIRM MODAL
+    let confirmCallback = null;
+
+    function showConfirm(title, msg, icon, cb) {
+      document.getElementById("confirmTitle").textContent = title;
+      document.getElementById("confirmMsg").textContent = msg;
+      document.getElementById("confirmIcon").textContent = icon;
+      confirmCallback = cb;
+      document.getElementById("confirmModal").classList.remove("hidden");
+      document.getElementById("confirmModal").classList.add("flex");
+    }
+
+    function closeConfirm() {
+      document.getElementById("confirmModal").classList.add("hidden");
+      document.getElementById("confirmModal").classList.remove("flex");
+      confirmCallback = null;
+    }
+
+    document.getElementById("confirmYes").addEventListener("click", () => {
+      if (confirmCallback) confirmCallback();
+      closeConfirm();
+    });
+
+    document.getElementById("confirmNo").addEventListener("click", closeConfirm);
+
+
+    
+    // FILTER TABS
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => {
+          b.classList.remove("active");
+          b.classList.add("bg-slate-800");
+          b.classList.remove("bg-amber-500", "text-black");
+        });
+        btn.classList.add("active");
+        currentFilter = btn.dataset.filter;
+        render();
+      });
+    });
+
+
+    
+    // CLEAR ALL
+    document.getElementById("clearAllBtn").addEventListener("click", () => {
+      showConfirm(
+        "Clear all submissions?",
+        "This will permanently delete every submission. This cannot be undone.",
+        "⚠️",
+        () => { localStorage.removeItem(KEY); render(); }
+      );
+    });
+
+
+    
+    // LOGIN
+    const ADMIN_USER = "chowspot";
+    const ADMIN_PASS = "admin1234";
+    const AUTH_KEY   = "chowspot_admin_auth";
+
+    function isAuthed() {
+      return sessionStorage.getItem(AUTH_KEY) === "true";
+    }
+
+    function showDashboard() {
+      document.getElementById("loginScreen").classList.add("hidden");
+    }
+
+    function attemptLogin() {
+      const user = document.getElementById("loginUsername").value.trim();
+      const pass = document.getElementById("loginPassword").value;
+      const errEl = document.getElementById("loginError");
+      const card  = document.getElementById("loginCard");
+
+      if (user === ADMIN_USER && pass === ADMIN_PASS) {
+        sessionStorage.setItem(AUTH_KEY, "true");
+        errEl.classList.add("hidden");
+        document.getElementById("loginBtn").innerHTML = '<i class="fa-solid fa-check mr-2"></i>Signed in!';
+        document.getElementById("loginBtn").classList.add("bg-green-500");
+        document.getElementById("loginBtn").classList.remove("bg-amber-500");
+        setTimeout(showDashboard, 600);
+      } else {
+        errEl.classList.remove("hidden");
+        card.classList.remove("shake");
+        void card.offsetWidth; // reflow to restart animation
+        card.classList.add("shake");
+        document.getElementById("loginPassword").value = "";
+        document.getElementById("loginPassword").focus();
+      }
+    }
+
+    document.getElementById("loginBtn").addEventListener("click", attemptLogin);
+
+    document.getElementById("loginUsername").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("loginPassword").focus();
+    });
+    document.getElementById("loginPassword").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") attemptLogin();
+    });
+
+    // Toggle password visibility
+    document.getElementById("togglePassword").addEventListener("click", () => {
+      const input = document.getElementById("loginPassword");
+      const icon  = document.getElementById("togglePasswordIcon");
+      if (input.type === "password") {
+        input.type = "text";
+        icon.className = "fa-solid fa-eye-slash";
+      } else {
+        input.type = "password";
+        icon.className = "fa-solid fa-eye";
+      }
+    });
+
+    // Logout button (added to topbar)
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      sessionStorage.removeItem(AUTH_KEY);
+      location.reload();
+    });
+
+   
+
+    // ============================================
+    // EXPORT vendors.json
+    // ============================================
+
+    const BASE_VENDORS_KEY = "chowspot_base_vendors";
+
+    async function loadBaseVendors() {
+      const stored = localStorage.getItem(BASE_VENDORS_KEY);
+      if (stored) {
+        try { return JSON.parse(stored); } catch(e) {}
+      }
+      try {
+        const res = await fetch("vendors.json");
+        const data = await res.json();
+        localStorage.setItem(BASE_VENDORS_KEY, JSON.stringify(data));
+        return data;
+      } catch(e) {
+        console.warn("Could not fetch vendors.json:", e);
+        return {};
+      }
+    }
+
+    document.getElementById("exportBtn").addEventListener("click", async () => {
+      const btn = document.getElementById("exportBtn");
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Building...';
+      btn.disabled = true;
+
+      const base = await loadBaseVendors();
+      const approved = loadApproved();
+      const merged = Object.assign({}, base, approved);
+
+      const json = JSON.stringify(merged, null, 2);
+      const blob = new Blob([json], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "vendors.json";
+      a.click();
+      URL.revokeObjectURL(url);
+
+      const total = Object.keys(merged).length;
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Downloaded! (' + total + ' vendors)';
+      btn.classList.remove("text-green-400", "border-green-500/30");
+      btn.classList.add("text-amber-400", "border-amber-500/30");
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-file-arrow-down mr-1"></i> Export vendors.json';
+        btn.classList.remove("text-amber-400", "border-amber-500/30");
+        btn.classList.add("text-green-400", "border-green-500/30");
+      }, 3000);
+    });
+
+
+    // INIT
+    if (isAuthed()) showDashboard();
+    render();
+  </script>
+
+</body>
+</html>
