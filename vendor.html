@@ -59,6 +59,13 @@
 
   </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f59e0b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ChowSpot">
+  <link rel="apple-touch-icon" href="Icons/icon-192.png">
 </head>
 <body class="bg-slate-950 text-white scroll-smooth">
   <!-- NAVBAR -->
@@ -95,7 +102,8 @@
           </li>
 
           <li>
-            <a href="register.html" class="nav-link transition">Register</a>
+            <a href="favorites.html" class="nav-link transition">Favourites</a>
+        <a href="register.html" class="nav-link transition">Register</a>
           </li>
 
         </ul>
@@ -124,6 +132,7 @@
         <a href="index.html" class="nav-link transition">Home</a>
         <a href="explore.html" class="nav-link transition">Explore</a>
         <a href="vendor.html" class="nav-link transition">Vendors</a>
+        <a href="favorites.html" class="nav-link transition">Favourites</a>
         <a href="register.html" class="nav-link transition">Register</a>
 
         <div class="flex items-center gap-4 pt-2 border-t border-slate-800">
@@ -761,5 +770,16 @@
     </button>
 
    <script src="./js/app.js"></script> 
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js")
+          .then(reg => console.log("ChowSpot SW registered:", reg.scope))
+          .catch(err => console.warn("SW registration failed:", err));
+      });
+    }
+  </script>
 </body>
 </html>

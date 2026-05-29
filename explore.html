@@ -60,6 +60,13 @@
 
   </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f59e0b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ChowSpot">
+  <link rel="apple-touch-icon" href="Icons/icon-192.png">
 </head>
 <body class="bg-slate-950 text-white scroll-smooth">
   <!-- NAVBAR -->
@@ -96,7 +103,8 @@
           </li>
 
           <li>
-            <a href="register.html" class="nav-link transition">Register</a>
+            <a href="favorites.html" class="nav-link transition">Favourites</a>
+        <a href="register.html" class="nav-link transition">Register</a>
           </li>
 
         </ul>
@@ -125,6 +133,7 @@
         <a href="index.html" class="nav-link transition">Home</a>
         <a href="explore.html" class="nav-link transition">Explore</a>
         <a href="vendor.html" class="nav-link transition">Vendors</a>
+        <a href="favorites.html" class="nav-link transition">Favourites</a>
         <a href="register.html" class="nav-link transition">Register</a>
 
         <div class="flex items-center gap-4 pt-2 border-t border-slate-800">
@@ -197,12 +206,47 @@
             Jollof
           </button>
 
+          <!-- OPEN NOW TOGGLE -->
+          <button id="openNowBtn" class="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 px-5 py-3 rounded-xl transition font-medium text-slate-300">
+            <span class="w-2 h-2 rounded-full bg-slate-500" id="openNowDot"></span>
+            Open Now
+          </button>
+
         </div> 
       </div>
 
     </div>
 
   </section> .
+
+  <!-- CITY FILTER -->
+  <section class="pb-4">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center gap-3 flex-wrap">
+
+        <span class="text-slate-500 text-sm font-medium shrink-0">
+          <i class="fa-solid fa-location-dot text-amber-400 mr-1"></i>City:
+        </span>
+
+        <button class="city-btn bg-amber-500 text-black px-4 py-2 rounded-xl text-sm font-medium transition" data-city="all">
+          All Cities
+        </button>
+        <button class="city-btn bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl text-sm font-medium transition" data-city="benin city">
+          Benin City
+        </button>
+        <button class="city-btn bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl text-sm font-medium transition" data-city="lagos">
+          Lagos
+        </button>
+        <button class="city-btn bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl text-sm font-medium transition" data-city="abuja">
+          Abuja
+        </button>
+        <button class="city-btn bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl text-sm font-medium transition" data-city="port harcourt">
+          Port Harcourt
+        </button>
+
+      </div>
+    </div>
+  </section>
 
   <!-- FOOD LISTINGS -->
   <section class="pb-24 fade-up">
@@ -212,7 +256,7 @@
       <div id="foodContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
         <!-- CARD 1 -->
-        <div class="group food-card bg-slate-900 border border-slate-800 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300 rounded-3xl overflow-hidden shadow-xl" data-name="Mama Nkechi Suya" data-category="suya">
+        <div class="group food-card bg-slate-900 border border-slate-800 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300 rounded-3xl overflow-hidden shadow-xl" data-name="Mama Nkechi Suya" data-category="suya" data-city="benin city">
           
           <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200&auto=format&fit=crop" 
           class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
@@ -244,7 +288,7 @@
         </div>
         
         <!-- CARD 2 -->
-        <div class="group food-card bg-slate-900 border border-slate-800 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300 rounded-3xl overflow-hidden shadow-xl" data-name="Shawarma Hub" data-category="shawarma">
+        <div class="group food-card bg-slate-900 border border-slate-800 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300 rounded-3xl overflow-hidden shadow-xl" data-name="Shawarma Hub" data-category="shawarma" data-city="benin city">
 
           <img src="Images/Shawarma-Hub-Cover5.jfif" class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
 
@@ -275,7 +319,7 @@
         </div>
         
         <!-- CARD 3 -->
-        <div class="group food-card bg-slate-900 border border-slate-800 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300 rounded-3xl overflow-hidden shadow-xl" data-name="Bukka Royale" data-category="jollof">
+        <div class="group food-card bg-slate-900 border border-slate-800 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300 rounded-3xl overflow-hidden shadow-xl" data-name="Bukka Royale" data-category="jollof" data-city="benin city">
 
           <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop" 
           class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
@@ -308,7 +352,7 @@
 
         <!-- AMAKA BOLE -->
         <div class="group food-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden transition duration-300 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/20 hover:shadow-2xl" 
-        data-category="bole grill">
+        data-category="bole grill" data-city="port harcourt">
 
           <img src="Images/Amaka-Bole-Spot.jfif" alt="Amaka Bole Spot" class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
 
@@ -340,7 +384,7 @@
 
         <!-- IYA BASIRA -->
         <div class="group food-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden transition duration-300 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/20 hover:shadow-2xl"
-        data-category="local amala egusi">
+        data-category="local amala egusi" data-city="lagos">
 
           <img src="Images/Iya-Basira-Kitchen.jfif" alt="Iya Basira Kitchen" class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
 
@@ -372,7 +416,7 @@
 
         <!-- CHOPS & PEPPERS -->
         <div class="group food-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden transition duration-300 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/20 hover:shadow-2xl"
-        data-category="small chops snacks">
+        data-category="small chops snacks" data-city="abuja">
 
           <img src="Images/Chops-and-Peppers.jfif" alt="Chops & Peppers" class="h-64 w-full object-cover transition duration-500 group-hover:scale-110">
 
@@ -567,5 +611,16 @@
     </button>
 
     <script src="./js/app.js"></script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js")
+          .then(reg => console.log("ChowSpot SW registered:", reg.scope))
+          .catch(err => console.warn("SW registration failed:", err));
+      });
+    }
+  </script>
 </body>
 </html>

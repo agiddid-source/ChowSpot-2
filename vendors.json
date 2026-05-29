@@ -140,13 +140,13 @@
       {
         "name": "Peppered Turkey",
         "price": "₦4,500",
-        "desc": "Spicy grilled turkey with rich pepper sauce.",
+        "desc": "Spicy grilled turkey with rich pepper sauce and smoky local flavors.",
         "image": "./Images/Peppered-Turkey.jfif"
       },
       {
         "name": "Egusi Soup",
         "price": "₦4,500",
-        "desc": "Traditional egusi served with pounded yam.",
+        "desc": "Traditional egusi served with pounded yam and rich local spices.",
         "image": "./Images/Egusi-Soup3.jfif"
       },
       {

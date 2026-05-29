@@ -212,11 +212,27 @@ searchInput?.addEventListener("keydown", (e) => {
 // PRE-FILL SEARCH FROM URL (when redirected from homepage)
 const urlParams = new URLSearchParams(window.location.search);
 const urlSearch = urlParams.get("search");
+const urlCity   = urlParams.get("city");
 
 if (urlSearch && searchInput) {
   searchInput.value = urlSearch;
-  runSearch(urlSearch);
 }
+
+if (urlCity) {
+  const matchingCityBtn = [...document.querySelectorAll(".city-btn")]
+    .find(b => b.dataset.city === urlCity.toLowerCase());
+  if (matchingCityBtn) {
+    document.querySelectorAll(".city-btn").forEach(b => {
+      b.classList.remove("bg-amber-500", "text-black");
+      b.classList.add("bg-slate-800", "text-slate-300");
+    });
+    matchingCityBtn.classList.add("bg-amber-500", "text-black");
+    matchingCityBtn.classList.remove("bg-slate-800", "text-slate-300");
+    activeCity = urlCity.toLowerCase();
+  }
+}
+
+if (urlSearch || urlCity) applyAllFilters();
 
 
 
@@ -243,6 +259,74 @@ filterButtons.forEach((button) => {
 });
 
 
+
+
+
+// ============================================
+// OPEN NOW FILTER
+// ============================================
+
+const openNowBtn = document.getElementById("openNowBtn");
+const openNowDot = document.getElementById("openNowDot");
+let openNowActive = false;
+
+const cityButtons = document.querySelectorAll(".city-btn");
+let activeCity = "all";
+
+// Wire city buttons
+cityButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    cityButtons.forEach((b) => {
+      b.classList.remove("bg-amber-500", "text-black");
+      b.classList.add("bg-slate-800", "text-slate-300");
+    });
+    btn.classList.add("bg-amber-500", "text-black");
+    btn.classList.remove("bg-slate-800", "text-slate-300");
+    activeCity = btn.dataset.city;
+    applyAllFilters();
+  });
+});
+
+function applyAllFilters() {
+  const searchValue = (searchInput?.value || "").toLowerCase();
+  const activeCategory = document.querySelector(".filter-btn.bg-amber-500")?.dataset.category || "all";
+
+  foodCards.forEach((card) => {
+    const nameEl = card.querySelector("h2, h3");
+    const cardName = (nameEl?.textContent || "").trim();
+    const slug = vendorSlugMap[cardName];
+    const vendorName = cardName.toLowerCase();
+    const category = (card.dataset.category || "").toLowerCase();
+    const location = (card.querySelector("p")?.textContent || "").toLowerCase();
+    const city = (card.dataset.city || "").toLowerCase();
+
+    const matchesSearch = !searchValue || vendorName.includes(searchValue) || category.includes(searchValue) || location.includes(searchValue);
+    const matchesCategory = activeCategory === "all" || category.includes(activeCategory.toLowerCase());
+    const matchesCity = activeCity === "all" || city.includes(activeCity.toLowerCase());
+    const matchesOpen = !openNowActive || (slug && isVendorOpen(slug) === true);
+
+    card.style.display = (matchesSearch && matchesCategory && matchesCity && matchesOpen) ? "block" : "none";
+  });
+
+  const visibleCards = [...foodCards].filter((c) => c.style.display !== "none");
+  if (emptyState) emptyState.classList.toggle("hidden", visibleCards.length > 0);
+}
+
+if (openNowBtn) {
+  openNowBtn.addEventListener("click", () => {
+    openNowActive = !openNowActive;
+    if (openNowActive) {
+      openNowBtn.classList.remove("bg-slate-800", "hover:bg-slate-700", "text-slate-300");
+      openNowBtn.classList.add("bg-green-500/20", "border", "border-green-500/40", "text-green-400");
+      if (openNowDot) { openNowDot.classList.remove("bg-slate-500"); openNowDot.classList.add("bg-green-400"); }
+    } else {
+      openNowBtn.classList.add("bg-slate-800", "hover:bg-slate-700", "text-slate-300");
+      openNowBtn.classList.remove("bg-green-500/20", "border", "border-green-500/40", "text-green-400");
+      if (openNowDot) { openNowDot.classList.remove("bg-green-400"); openNowDot.classList.add("bg-slate-500"); }
+    }
+    applyAllFilters();
+  });
+}
 
 // SCROLL REVEAL ANIMATION
 const fadeElements = document.querySelectorAll(".fade-up");
@@ -386,23 +470,23 @@ if (allVendorsPage && singleVendorPage) {
     
     // SAVE FAVORITE VENDOR
     const saveVendorBtn = document.getElementById("saveVendorBtn");
-    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    let favorites = JSON.parse(localStorage.getItem("chowspot_favorites")) || [];
 
     if (saveVendorBtn) {
-      const vendorName = v.name;
-      if (favorites.includes(vendorName)) {
+      const vendorSlug = vendorId;
+      if (favorites.includes(vendorSlug)) {
         saveVendorBtn.innerHTML = "✅ Saved";
         saveVendorBtn.classList.add("border-amber-400", "text-amber-400");
       }
       saveVendorBtn.addEventListener("click", () => {
-        if (!favorites.includes(vendorName)) {
-          favorites.push(vendorName);
-          localStorage.setItem("favorites", JSON.stringify(favorites));
+        if (!favorites.includes(vendorSlug)) {
+          favorites.push(vendorSlug);
+          localStorage.setItem("chowspot_favorites", JSON.stringify(favorites));
           saveVendorBtn.innerHTML = "✅ Saved";
           saveVendorBtn.classList.add("border-amber-400", "text-amber-400");
         } else {
-          favorites = favorites.filter((f) => f !== vendorName);
-          localStorage.setItem("favorites", JSON.stringify(favorites));
+          favorites = favorites.filter((f) => f !== vendorSlug);
+          localStorage.setItem("chowspot_favorites", JSON.stringify(favorites));
           saveVendorBtn.innerHTML = "❤️ Save Vendor";
           saveVendorBtn.classList.remove("border-amber-400", "text-amber-400");
         }

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChowSpot | My Favourites</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav-link { position: relative; padding-bottom: 4px; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background-color: #f59e0b;
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after { width: 100%; }
+    .nav-link:hover,
+    .nav-link.active { color: #f59e0b; }
+
+    /* shimmer skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 12px;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f59e0b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ChowSpot">
+  <link rel="apple-touch-icon" href="Icons/icon-192.png">
+</head>
+<body class="bg-slate-950 text-white scroll-smooth">
+
+  <!-- BACKGROUND GLOW -->
+  <div class="fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute top-0 left-0 w-72 h-72 bg-amber-500/20 blur-3xl rounded-full"></div>
+    <div class="absolute bottom-0 right-0 w-72 h-72 bg-orange-500/20 blur-3xl rounded-full"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-950/70 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/20">
+    <nav class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between gap-8">
+
+        <!-- LOGO -->
+        <a href="index.html" class="text-2xl font-bold flex items-center gap-2">
+          <span class="text-white text-3xl">🥘</span>
+          <span class="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">ChowSpot</span>
+        </a>
+
+        <!-- DESKTOP NAV -->
+        <ul class="hidden md:flex items-center gap-8 text-sm font-medium flex-1 justify-center">
+          <li><a href="index.html" class="nav-link transition">Home</a></li>
+          <li><a href="explore.html" class="nav-link transition">Explore</a></li>
+          <li><a href="vendor.html" class="nav-link transition">Vendors</a></li>
+          <li><a href="favorites.html" class="nav-link transition">Favourites</a></li>
+          <li><a href="register.html" class="nav-link transition">Register</a></li>
+        </ul>
+
+        <!-- RIGHT CTA -->
+        <div class="hidden md:flex items-center gap-4 shrink-0">
+          <a href="explore.html" class="bg-amber-500 hover:bg-amber-400 text-black font-semibold text-sm px-5 py-2.5 rounded-xl transition duration-300 hover:scale-105 hover:shadow-amber-500/40 hover:shadow-lg">
+            Find Food →
+          </a>
+        </div>
+
+        <!-- MOBILE BUTTON -->
+        <button id="menu-btn" class="md:hidden text-3xl">☰</button>
+      </div>
+
+      <!-- MOBILE MENU -->
+      <div id="mobile-menu" class="hidden flex-col gap-4 mt-6 md:hidden text-sm font-medium">
+        <a href="index.html" class="nav-link transition">Home</a>
+        <a href="explore.html" class="nav-link transition">Explore</a>
+        <a href="vendor.html" class="nav-link transition">Vendors</a>
+        <a href="favorites.html" class="nav-link transition">Favourites</a>
+        <a href="register.html" class="nav-link transition">Register</a>
+        <div class="flex items-center gap-4 pt-2 border-t border-slate-800">
+          <a href="explore.html" class="bg-amber-500 hover:bg-amber-400 text-black font-semibold px-5 py-2.5 rounded-xl transition duration-300">
+            Find Food →
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- PAGE HEADER -->
+  <section class="py-16 fade-up">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <p class="text-amber-400 text-sm font-semibold uppercase tracking-widest mb-3">Your Collection</p>
+          <h1 class="text-4xl sm:text-5xl font-bold leading-tight">
+            My Favourites <span class="text-amber-400">❤️</span>
+          </h1>
+          <p class="text-slate-400 mt-3 text-lg" id="favSubtitle">Vendors you've saved for later.</p>
+        </div>
+        <button id="clearFavBtn"
+          class="hidden self-start sm:self-auto text-sm text-slate-500 hover:text-red-400 border border-slate-700 hover:border-red-400 px-5 py-2.5 rounded-xl transition duration-200">
+          <i class="fa-solid fa-trash mr-1"></i> Clear All
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SKELETONS (shown while loading) -->
+  <section id="skeletonSection" class="pb-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
+          <div class="skeleton h-56 w-full"></div>
+          <div class="p-6 space-y-3">
+            <div class="skeleton h-5 w-2/3"></div>
+            <div class="skeleton h-4 w-1/2"></div>
+            <div class="skeleton h-4 w-3/4"></div>
+            <div class="skeleton h-11 w-full mt-4" style="border-radius:16px"></div>
+          </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden hidden md:block">
+          <div class="skeleton h-56 w-full"></div>
+          <div class="p-6 space-y-3">
+            <div class="skeleton h-5 w-2/3"></div>
+            <div class="skeleton h-4 w-1/2"></div>
+            <div class="skeleton h-4 w-3/4"></div>
+            <div class="skeleton h-11 w-full mt-4" style="border-radius:16px"></div>
+          </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden hidden lg:block">
+          <div class="skeleton h-56 w-full"></div>
+          <div class="p-6 space-y-3">
+            <div class="skeleton h-5 w-2/3"></div>
+            <div class="skeleton h-4 w-1/2"></div>
+            <div class="skeleton h-4 w-3/4"></div>
+            <div class="skeleton h-11 w-full mt-4" style="border-radius:16px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- EMPTY STATE -->
+  <section id="emptyState" class="hidden pb-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col items-center justify-center text-center py-24 bg-slate-900/40 border border-slate-800 rounded-3xl">
+        <div class="text-7xl mb-6">💔</div>
+        <h2 class="text-2xl font-bold mb-3">No saved vendors yet</h2>
+        <p class="text-slate-400 max-w-md mb-8">
+          When you find a vendor you love, tap the <span class="text-amber-400 font-semibold">❤️ Save Vendor</span> button on their profile page and it'll appear here.
+        </p>
+        <a href="explore.html"
+          class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-4 rounded-2xl transition duration-300 hover:scale-[1.02] hover:shadow-amber-500/40 hover:shadow-lg">
+          Explore Vendors →
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAVOURITES GRID -->
+  <section id="favGrid" class="hidden pb-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div id="favContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </div>
+  </section>
+
+
+  <!-- BACK TO TOP -->
+  <button id="topBtn"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-amber-500 text-black w-14 h-14 rounded-full shadow-2xl hidden hover:scale-110 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300">
+    ↑
+  </button>
+
+
+  <script src="app.js"></script>
+
+  <script>
+    // MOBILE MENU
+    document.getElementById("menu-btn").addEventListener("click", () => {
+      const m = document.getElementById("mobile-menu");
+      m.classList.toggle("hidden");
+      m.classList.toggle("flex");
+    });
+
+    // ACTIVE NAV
+    document.querySelectorAll(".nav-link").forEach((link) => {
+      const path = (link.getAttribute("href") || "").split("?")[0];
+      if (path === "favorites.html") link.classList.add("active");
+    });
+
+    // FADE UP
+    const fadeEls = document.querySelectorAll(".fade-up");
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) setTimeout(() => e.target.classList.add("show"), i * 100);
+      });
+    });
+    fadeEls.forEach((el) => obs.observe(el));
+
+    // ============================================
+    // LOAD & RENDER FAVOURITES
+    // ============================================
+    async function loadFavorites() {
+      const skeletonSection = document.getElementById("skeletonSection");
+      const emptyState      = document.getElementById("emptyState");
+      const favGrid         = document.getElementById("favGrid");
+      const favContainer    = document.getElementById("favContainer");
+      const favSubtitle     = document.getElementById("favSubtitle");
+      const clearBtn        = document.getElementById("clearFavBtn");
+
+      const slugs = JSON.parse(localStorage.getItem("chowspot_favorites") || "[]");
+
+      // Load vendors.json
+      let vendors = {};
+      try {
+        const res = await fetch("vendors.json");
+        vendors = await res.json();
+      } catch (e) {
+        console.error("Could not load vendors.json", e);
+      }
+
+      // Merge approved
+      try {
+        const approved = JSON.parse(localStorage.getItem("chowspot_approved_vendors") || "{}");
+        Object.assign(vendors, approved);
+      } catch (e) {}
+
+      // Hide skeletons
+      skeletonSection.classList.add("hidden");
+
+      if (slugs.length === 0) {
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      // Filter to only valid slugs
+      const validSlugs = slugs.filter(s => vendors[s]);
+
+      if (validSlugs.length === 0) {
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      favSubtitle.textContent = `${validSlugs.length} vendor${validSlugs.length !== 1 ? "s" : ""} saved.`;
+      clearBtn.classList.remove("hidden");
+      favGrid.classList.remove("hidden");
+
+      favContainer.innerHTML = validSlugs.map(slug => {
+        const v = vendors[slug];
+
+        // Open status
+        const now = new Date();
+        const currentDay = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][now.getDay()];
+        const currentMins = now.getHours() * 60 + now.getMinutes();
+        let isOpen = null;
+        if (v.hours) {
+          const todayHours = v.hours.find(h => h.day === currentDay);
+          if (todayHours && todayHours.time && todayHours.time.toLowerCase() !== "closed") {
+            const parts = todayHours.time.split("-").map(s => s.trim());
+            if (parts.length === 2) {
+              const parseT = (str) => {
+                str = str.trim().toUpperCase();
+                const isPM = str.includes("PM"), isAM = str.includes("AM");
+                str = str.replace("PM","").replace("AM","").trim();
+                let [h, m] = str.split(":").map(Number);
+                if (isNaN(m)) m = 0;
+                if (isPM && h !== 12) h += 12;
+                if (isAM && h === 12) h = 0;
+                return h * 60 + m;
+              };
+              const openM = parseT(parts[0]);
+              let closeM = parseT(parts[1]);
+              if (closeM < openM) closeM += 1440;
+              let nowAdj = currentMins;
+              if (nowAdj < openM) nowAdj += 1440;
+              isOpen = nowAdj >= openM && nowAdj < closeM;
+            }
+          } else if (todayHours && todayHours.time?.toLowerCase() === "closed") {
+            isOpen = false;
+          }
+        }
+
+        const openBadge = isOpen === true
+          ? `<span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">🟢 Open Now</span>`
+          : isOpen === false
+          ? `<span class="absolute top-3 left-3 bg-red-500/80 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">🔴 Closed</span>`
+          : "";
+
+        return `
+        <div class="group bg-slate-900 border border-slate-800 hover:-translate-y-2 hover:border-amber-400 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300 rounded-3xl overflow-hidden shadow-xl fade-up show">
+
+          <!-- IMAGE -->
+          <div class="relative overflow-hidden">
+            <img src="${v.image}" alt="${v.name}"
+              class="h-56 w-full object-cover group-hover:scale-105 transition duration-500">
+            ${openBadge}
+          </div>
+
+          <!-- BODY -->
+          <div class="p-6">
+            <div class="flex flex-col">
+              <h3 class="text-2xl font-semibold">${v.name}</h3>
+              <p class="text-slate-400 mt-2">
+                <i class="fa-solid fa-location-dot text-amber-400 mr-2"></i>${v.location}
+              </p>
+              <span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-sm mt-3 self-start">
+                ${v.rating}
+              </span>
+            </div>
+
+            <p class="text-slate-500 mt-4 text-sm leading-relaxed line-clamp-2">${v.description}</p>
+
+            <div class="flex gap-3 mt-6">
+              <a href="vendor.html?vendor=${slug}"
+                class="flex-1 bg-amber-500 hover:bg-amber-400 text-black font-semibold py-3 rounded-2xl text-center text-sm transition duration-300 hover:scale-[1.02]">
+                View Details
+              </a>
+              <button class="unsave-btn w-12 h-12 rounded-2xl border border-slate-700 hover:border-red-400 hover:text-red-400 text-slate-500 flex items-center justify-center transition duration-300"
+                data-slug="${slug}" title="Remove from favourites">
+                <i class="fa-solid fa-heart-crack"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>`;
+      }).join("");
+
+      // Fade up observer for new cards
+      document.querySelectorAll(".fade-up:not(.show)").forEach(el => obs.observe(el));
+
+      // UNSAVE buttons
+      document.querySelectorAll(".unsave-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const slug = btn.dataset.slug;
+          let saved = JSON.parse(localStorage.getItem("chowspot_favorites") || "[]");
+          saved = saved.filter(s => s !== slug);
+          localStorage.setItem("chowspot_favorites", JSON.stringify(saved));
+
+          // Remove card with animation
+          const card = btn.closest(".group");
+          card.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+          card.style.opacity = "0";
+          card.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            card.remove();
+            const remaining = document.querySelectorAll(".unsave-btn").length;
+            if (remaining === 0) {
+              favGrid.classList.add("hidden");
+              emptyState.classList.remove("hidden");
+              clearBtn.classList.add("hidden");
+            } else {
+              favSubtitle.textContent = `${remaining} vendor${remaining !== 1 ? "s" : ""} saved.`;
+            }
+          }, 300);
+        });
+      });
+    }
+
+    // CLEAR ALL
+    document.getElementById("clearFavBtn").addEventListener("click", () => {
+      if (!confirm("Remove all saved vendors?")) return;
+      localStorage.removeItem("chowspot_favorites");
+      document.getElementById("favGrid").classList.add("hidden");
+      document.getElementById("emptyState").classList.remove("hidden");
+      document.getElementById("clearFavBtn").classList.add("hidden");
+      document.getElementById("favSubtitle").textContent = "Vendors you've saved for later.";
+    });
+
+    loadFavorites();
+  </script>
+
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js")
+          .then(reg => console.log("ChowSpot SW registered:", reg.scope))
+          .catch(err => console.warn("SW registration failed:", err));
+      });
+    }
+  </script>
+</body>
+</html>

@@ -60,6 +60,13 @@
       .day-closed { grid-column: 1 / -1; justify-self: start; }
     }
   </style>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f59e0b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ChowSpot">
+  <link rel="apple-touch-icon" href="Icons/icon-192.png">
 </head>
 <body class="bg-slate-950 text-white">
 
@@ -99,6 +106,7 @@
         <a href="index.html" class="nav-link transition">Home</a>
         <a href="explore.html" class="nav-link transition">Explore</a>
         <a href="vendor.html" class="nav-link transition">Vendors</a>
+        <a href="favorites.html" class="nav-link transition">Favourites</a>
         <a href="register.html" class="nav-link transition">Register</a>
         <div class="flex items-center gap-4 pt-2 border-t border-slate-800">
           <a href="#" class="nav-link transition text-sm">Sign In</a>
@@ -643,5 +651,16 @@
     });
   </script>
 
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js")
+          .then(reg => console.log("ChowSpot SW registered:", reg.scope))
+          .catch(err => console.warn("SW registration failed:", err));
+      });
+    }
+  </script>
 </body>
 </html>
