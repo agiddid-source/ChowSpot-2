@@ -25,10 +25,8 @@ topBtn?.addEventListener("click", () => {
 
 });
 
-// ============================================
-// LOAD VENDORS (from vendors.json + localStorage approved)
-// ============================================
 
+// LOAD VENDORS (from vendors.json + localStorage approved)
 async function initApp() {
 
   let vendors = {};
@@ -49,11 +47,7 @@ async function initApp() {
   }
 
 
-
-// ============================================
 // OPEN NOW BADGE
-// ============================================
-
 function parseTime(timeStr) {
   if (!timeStr) return null;
   timeStr = timeStr.trim().toUpperCase();
@@ -117,10 +111,8 @@ document.querySelectorAll(".food-card").forEach((card) => {
 });
 
 
-// ============================================
-// WHATSAPP SHARE BUTTON
-// ============================================
 
+// WHATSAPP SHARE BUTTON
 document.querySelectorAll(".food-card").forEach((card) => {
   const nameEl = card.querySelector("h2, h3");
   if (!nameEl) return;
@@ -141,10 +133,8 @@ document.querySelectorAll(".food-card").forEach((card) => {
   viewBtn.insertAdjacentElement("afterend", shareBtn);
 });
 
-// ============================================
-// MOBILE MENU
-// ============================================
 
+// MOBILE MENU
 const menuBtn = document.getElementById("menu-btn");
 const mobileMenu = document.getElementById("mobile-menu");
 
@@ -156,10 +146,8 @@ if (menuBtn && mobileMenu) {
 }
 
 
-// ============================================
-// HERO SEARCH REDIRECT (index.html)
-// ============================================
 
+// HERO SEARCH REDIRECT (index.html)
 const heroSearchInput = document.getElementById("heroSearchInput");
 const heroSearchBtn = document.getElementById("heroSearchBtn");
 
@@ -262,10 +250,8 @@ filterButtons.forEach((button) => {
 
 
 
-// ============================================
-// OPEN NOW FILTER
-// ============================================
 
+// OPEN NOW FILTER
 const openNowBtn = document.getElementById("openNowBtn");
 const openNowDot = document.getElementById("openNowDot");
 let openNowActive = false;
