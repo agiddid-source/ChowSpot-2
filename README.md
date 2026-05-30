@@ -6,7 +6,7 @@
 
 ## 📌 Overview
 
-ChowSpot is a vendor discovery platform focused on Nigerian street food. Users can browse vendors across multiple cities, view full menus with pricing, check live opening hours, save favourites, and send orders directly via WhatsApp. Vendors can register through a dedicated form, and an admin panel handles approvals before new vendors go live on the storefront.
+ChowSpot is a vendor discovery platform focused on Nigerian street food. Users can browse vendors across multiple cities, view full menus with pricing, check live opening hours, save favourites, and send orders directly via WhatsApp. Vendors can register through a dedicated form, and an admin panel handles approvals before new vendors go live on the storefront. ChowSpot is also installable as a Progressive Web App — users can add it to their home screen and use it offline like a native app.
 
 ---
 
@@ -15,13 +15,18 @@ ChowSpot is a vendor discovery platform focused on Nigerian street food. Users c
 ```
 chowspot/
 ├── index.html          # Homepage — hero, featured vendors, how it works
-├── explore.html        # Browse & search all vendors with category filters
+├── explore.html        # Browse & search all vendors with category + city filters
 ├── vendor.html         # Vendor profile page (dynamic, driven by ?vendor= param)
 ├── register.html       # Vendor registration form
+├── favorites.html      # Saved vendors page
 ├── admin.html          # Admin dashboard (login protected)
-├── app.js              # All JavaScript logic — shared across all pages
+├── manifest.json       # PWA manifest — makes the app installable
+├── sw.js               # Service worker — offline caching
 ├── vendors.json        # Vendor data store — single source of truth
-└── Images/             # Local dish and vendor cover photos
+├── Images/             # Vendor and dish cover photos
+├── Icons/              # PWA app icons (192×192 and 512×512)
+└── js/
+    └── app.js          # All JavaScript logic — shared across all pages
 ```
 
 ---
@@ -30,15 +35,19 @@ chowspot/
 
 ### For Users
 - **Vendor Discovery** — browse all vendors with category filters (Suya, Shawarma, Jollof, Bole, Local Dishes, Small Chops)
+- **City Filter** — filter vendors by city: Benin City, Lagos, Abuja, Port Harcourt. Supports `?city=` URL params for deep-linking
 - **Live Search** — search vendors by name, category, or city in real time
-- **Open Now Badge** — each vendor card shows a live green/red open status based on actual opening hours and the current time
+- **Open Now Filter** — one-click toggle to show only vendors currently open, based on live time and each vendor's actual hours
+- **Open Now Badge** — every vendor card shows a live green/red open status
 - **Vendor Profile Pages** — full page per vendor with hero image, description, location, Google Maps embed, opening hours, and menu
 - **Menu & Cart** — add dishes to cart with quantity controls; cart slides in from the side
 - **WhatsApp Ordering** — cart checkout sends a pre-formatted order message directly to the vendor's WhatsApp
-- **Save Vendors** — heart-save any vendor; saved to localStorage
+- **Favourites Page** — save any vendor with the heart button; view and manage all saved vendors on a dedicated page with shimmer loading and live open/closed status
 - **Customer Reviews** — star rating form on every vendor page; reviews appear instantly
 - **Share on WhatsApp** — share any vendor's profile link from the explore page
 - **Back to Top Button** — appears after scrolling past the midpoint of any page
+- **Offline Support** — core pages and assets are cached by the service worker; the app loads even without an internet connection
+- **Installable (PWA)** — users on mobile and desktop get an install prompt to add ChowSpot to their home screen
 
 ### For Vendors
 - **Registration Form** — multi-section form covering business details, location & contact, menu highlights (up to 6 dishes with cover photos), and opening hours per day
@@ -68,7 +77,7 @@ cd chowspot
 
 ### 2. Serve locally
 
-Because `app.js` fetches `vendors.json` via `fetch()`, you need a local server — opening `index.html` directly as a file won't work.
+Because `app.js` fetches `vendors.json` via `fetch()`, you need a local server — opening `index.html` directly as a file won't work. The service worker also requires a server environment to register.
 
 **Using VS Code Live Server** (recommended)
 Install the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer), right-click `index.html` → *Open with Live Server*.
@@ -86,7 +95,7 @@ npx serve .
 ```
 
 ### 3. You're live
-Open `index.html` in your browser. All pages share `app.js` and `vendors.json` — no build step, no dependencies to install.
+Open `index.html` in your browser. All pages share `js/app.js` and `vendors.json` — no build step, no dependencies to install.
 
 ---
 
@@ -102,8 +111,34 @@ Open `index.html` in your browser. All pages share `app.js` and `vendors.json` �
 | Data | `vendors.json` + `localStorage` |
 | Maps | Google Maps embed iframe |
 | Ordering | WhatsApp deep links (`wa.me`) |
+| PWA | Web App Manifest + Service Worker |
 
 No frameworks. No build tools. No backend.
+
+---
+
+## 📲 PWA — Installing ChowSpot
+
+ChowSpot is a fully installable Progressive Web App.
+
+**On mobile (Chrome / Safari):**
+- Android: tap the browser menu → *Add to Home Screen*
+- iOS: tap the Share button → *Add to Home Screen*
+
+**On desktop (Chrome / Edge):**
+- Look for the install icon in the address bar and click it
+
+Once installed, ChowSpot opens full-screen with no browser chrome, loads instantly from cache, and works offline for previously visited pages.
+
+### Setting up the PWA icons
+Create an `Icons/` folder in the project root and add two PNG files:
+
+| File | Size |
+|---|---|
+| `Icons/icon-192.png` | 192×192px |
+| `Icons/icon-512.png` | 512×512px |
+
+A simple design — the 🥘 emoji or a food icon on an amber (`#f59e0b`) background — works well. Free tools like [Canva](https://canva.com) or [favicon.io](https://favicon.io) can generate these in seconds.
 
 ---
 
@@ -173,8 +208,9 @@ All vendor data lives in `vendors.json`. Each vendor entry follows this structur
 | Page | URL | Description |
 |---|---|---|
 | Homepage | `index.html` | Hero, featured vendors, how it works, footer |
-| Explore | `explore.html` | Full vendor listing with search and category filters |
+| Explore | `explore.html` | Vendor listing with search, category, city, and open now filters |
 | Vendor Profile | `vendor.html?vendor=slug` | Single vendor page — menu, hours, cart, reviews |
+| Favourites | `favorites.html` | Saved vendors with live open status and remove controls |
 | Register | `register.html` | Vendor registration form |
 | Admin | `admin.html` | Password-protected admin dashboard |
 
@@ -195,12 +231,12 @@ All vendor data lives in `vendors.json`. Each vendor entry follows this structur
 
 ## 🔮 Planned Features
 
-- [ ] Favorites page (view all saved vendors)
-- [ ] City filter on explore page
-- [ ] "Open now" filter toggle
+- [x] Favourites page (view all saved vendors)
+- [x] City filter on explore page
+- [x] Open Now filter toggle
+- [x] PWA support (installable on home screen)
 - [ ] Vendor photo gallery / lightbox
 - [ ] Order history across sessions
-- [ ] PWA support (installable on home screen)
 - [ ] Firebase backend for real-time vendor updates
 
 ---
