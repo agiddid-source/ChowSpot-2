@@ -59,6 +59,25 @@
       .day-label { grid-column: 1 / -1; }
       .day-closed { grid-column: 1 / -1; justify-self: start; }
     }
+
+    /* Mobile safety net */
+    *, *::before, *::after { box-sizing: border-box; }
+    input, select, textarea {
+      max-width: 100%;
+      min-width: 0;
+    }
+    .whatsapp-row { display: flex; gap: 10px; align-items: stretch; }
+    .whatsapp-prefix {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .whatsapp-input { flex: 1; min-width: 0; }
+
+    @media (max-width: 480px) {
+      .form-card { padding: 1.25rem !important; }
+      .dish-card-inner { padding: 1rem !important; }
+      input[type="time"] { padding-left: 0.5rem !important; padding-right: 0.5rem !important; font-size: 13px; }
+    }
   </style>
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
@@ -140,7 +159,7 @@
   <section class="pb-28 fade-up">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
 
-      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-10 space-y-8">
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-8 md:p-10 space-y-8 form-card">
 
         <!-- SECTION: Basic Info -->
         <div>
@@ -211,10 +230,10 @@
             <!-- WhatsApp -->
             <div>
               <label class="block text-sm font-medium text-slate-300 mb-2">WhatsApp Number *</label>
-              <div class="flex gap-3">
-                <span class="bg-slate-800 border border-slate-700 rounded-2xl px-4 py-4 text-slate-400 text-sm shrink-0 flex items-center">+234</span>
+              <div class="whatsapp-row">
+                <span class="whatsapp-prefix bg-slate-800 border border-slate-700 rounded-2xl px-4 py-4 text-slate-400 text-sm flex items-center">+234</span>
                 <input type="tel" id="vendorWhatsapp" placeholder="e.g. 8011122233"
-                  class="form-input flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-5 py-4 text-white placeholder:text-slate-500 transition">
+                  class="whatsapp-input form-input bg-slate-800 border border-slate-700 rounded-2xl px-5 py-4 text-white placeholder:text-slate-500 transition">
               </div>
               <p class="text-slate-500 text-xs mt-2">Customers will use this to place orders via WhatsApp.</p>
             </div>
@@ -366,7 +385,7 @@
 
     function createMenuItemCard(index) {
       const card = document.createElement("div");
-      card.className = "menu-item-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 space-y-4 fade-up show";
+      card.className = "menu-item-card bg-slate-800/60 border border-slate-700 rounded-2xl p-4 sm:p-6 space-y-4 fade-up show dish-card-inner";
       card.dataset.index = index;
       card.innerHTML = `
         <div class="flex items-center justify-between mb-2">
@@ -375,19 +394,19 @@
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <div class="min-w-0">
             <label class="block text-xs font-medium text-slate-400 mb-1">Dish Name *</label>
-            <input type="text" class="dish-name form-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 text-sm transition" placeholder="e.g. Beef Suya">
+            <input type="text" class="dish-name form-input w-full min-w-0 bg-slate-900 border border-slate-700 rounded-xl px-3 py-3 text-white placeholder:text-slate-500 text-sm transition" placeholder="e.g. Beef Suya">
           </div>
-          <div>
+          <div class="min-w-0">
             <label class="block text-xs font-medium text-slate-400 mb-1">Price *</label>
-            <input type="text" class="dish-price form-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 text-sm transition" placeholder="e.g. ₦3,500">
+            <input type="text" class="dish-price form-input w-full min-w-0 bg-slate-900 border border-slate-700 rounded-xl px-3 py-3 text-white placeholder:text-slate-500 text-sm transition" placeholder="e.g. ₦3,500">
           </div>
         </div>
         <div>
           <label class="block text-xs font-medium text-slate-400 mb-1">Short Description *</label>
-          <textarea class="dish-desc form-input w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 text-sm transition resize-none" rows="2" placeholder="e.g. Smoky grilled beef seasoned with spicy suya pepper."></textarea>
+          <textarea class="dish-desc form-input w-full min-w-0 bg-slate-900 border border-slate-700 rounded-xl px-3 py-3 text-white placeholder:text-slate-500 text-sm transition resize-none" rows="2" placeholder="e.g. Smoky grilled beef seasoned with spicy suya pepper."></textarea>
         </div>
         <div>
           <label class="block text-xs font-medium text-slate-400 mb-1">Dish Cover Photo *</label>
