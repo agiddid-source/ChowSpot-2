@@ -66,6 +66,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ChowSpot">
   <link rel="apple-touch-icon" href="Icons/icon-192.png">
+  <style>
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    #lightboxOverlay { animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
 </head>
 <body class="bg-slate-950 text-white scroll-smooth">
   <!-- NAVBAR -->
@@ -450,6 +456,16 @@
     </section>
 
   
+    <!-- PHOTO GALLERY STRIP -->
+    <section id="gallerySection" class="pb-10 hidden">
+      <div class="max-w-7xl mx-auto px-6">
+        <p class="text-slate-500 text-xs uppercase tracking-widest font-medium mb-4">
+          <i class="fa-solid fa-images text-amber-400 mr-2"></i>Dish Gallery
+        </p>
+        <div id="galleryStrip" class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide"></div>
+      </div>
+    </section>
+
     <!-- MENU HIGHLIGHTS -->
     <section id="menuHighlights" class="py-24 fade-up">
 

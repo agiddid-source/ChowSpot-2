@@ -434,6 +434,115 @@ if (allVendorsPage && singleVendorPage) {
     }
 
     
+    // RENDER PHOTO GALLERY
+    const gallerySection = document.getElementById("gallerySection");
+    const galleryStrip = document.getElementById("galleryStrip");
+
+    if (galleryStrip && v.menu && v.menu.length > 0) {
+      const dishImages = v.menu.filter(item => item.image);
+
+      if (dishImages.length > 0) {
+        gallerySection?.classList.remove("hidden");
+
+        galleryStrip.innerHTML = dishImages.map((item, idx) => `
+          <div class="gallery-thumb shrink-0 w-36 h-36 sm:w-44 sm:h-44 rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent hover:border-amber-400 transition duration-300 group"
+            data-index="${idx}">
+            <img src="${item.image}" alt="${item.name}"
+              class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          </div>
+        `).join("");
+
+        // Build lightbox
+        const lightbox = document.createElement("div");
+        lightbox.id = "lightboxOverlay";
+        lightbox.className = "fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm hidden items-center justify-center";
+        lightbox.innerHTML = `
+          <button id="lbClose" class="absolute top-5 right-5 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white text-2xl flex items-center justify-center transition z-10">✕</button>
+          <button id="lbPrev" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white text-xl flex items-center justify-center transition z-10">‹</button>
+          <button id="lbNext" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white text-xl flex items-center justify-center transition z-10">›</button>
+          <div class="flex flex-col items-center gap-4 px-16 max-w-3xl w-full">
+            <img id="lbImage" src="" alt="" class="max-h-[70vh] max-w-full rounded-3xl object-contain shadow-2xl">
+            <p id="lbCaption" class="text-white text-center font-semibold text-lg"></p>
+            <p id="lbPrice" class="text-amber-400 font-bold text-base"></p>
+            <div id="lbDots" class="flex gap-2 mt-1"></div>
+          </div>
+        `;
+        document.body.appendChild(lightbox);
+
+        let currentIdx = 0;
+
+        function openLightbox(idx) {
+          currentIdx = idx;
+          updateLightbox();
+          lightbox.classList.remove("hidden");
+          lightbox.classList.add("flex");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeLightbox() {
+          lightbox.classList.add("hidden");
+          lightbox.classList.remove("flex");
+          document.body.style.overflow = "";
+        }
+
+        function updateLightbox() {
+          const item = dishImages[currentIdx];
+          document.getElementById("lbImage").src = item.image;
+          document.getElementById("lbImage").alt = item.name;
+          document.getElementById("lbCaption").textContent = item.name;
+          document.getElementById("lbPrice").textContent = item.price;
+
+          // Dots
+          const dotsEl = document.getElementById("lbDots");
+          dotsEl.innerHTML = dishImages.map((_, i) =>
+            `<span class="w-2 h-2 rounded-full transition duration-300 ${i === currentIdx ? "bg-amber-400 scale-125" : "bg-white/30"}"></span>`
+          ).join("");
+        }
+
+        function nextSlide() {
+          currentIdx = (currentIdx + 1) % dishImages.length;
+          updateLightbox();
+        }
+
+        function prevSlide() {
+          currentIdx = (currentIdx - 1 + dishImages.length) % dishImages.length;
+          updateLightbox();
+        }
+
+        // Thumbnail click
+        galleryStrip.querySelectorAll(".gallery-thumb").forEach((thumb) => {
+          thumb.addEventListener("click", () => openLightbox(parseInt(thumb.dataset.index)));
+        });
+
+        // Controls
+        document.getElementById("lbClose").addEventListener("click", closeLightbox);
+        document.getElementById("lbNext").addEventListener("click", nextSlide);
+        document.getElementById("lbPrev").addEventListener("click", prevSlide);
+
+        // Backdrop click
+        lightbox.addEventListener("click", (e) => {
+          if (e.target === lightbox) closeLightbox();
+        });
+
+        // Keyboard nav
+        document.addEventListener("keydown", (e) => {
+          if (lightbox.classList.contains("hidden")) return;
+          if (e.key === "Escape") closeLightbox();
+          if (e.key === "ArrowRight") nextSlide();
+          if (e.key === "ArrowLeft") prevSlide();
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        lightbox.addEventListener("touchstart", (e) => { touchStartX = e.changedTouches[0].clientX; });
+        lightbox.addEventListener("touchend", (e) => {
+          const diff = touchStartX - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+        });
+      }
+    }
+
+
     // RENDER CUSTOMER REVIEWS
     const reviewsContainer = document.getElementById("reviewsContainer");
     if (reviewsContainer && v.customerReviews) {
@@ -589,6 +698,18 @@ if (allVendorsPage && singleVendorPage) {
               Clear Cart
             </button>
           </div>
+
+          <!-- PAST ORDERS -->
+          <div id="pastOrdersSection" class="border-t border-slate-800 px-6 py-5">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">
+                <i class="fa-solid fa-clock-rotate-left mr-2 text-amber-400"></i>Past Orders
+              </h3>
+              <button id="clearHistoryBtn" class="text-xs text-slate-600 hover:text-red-400 transition">Clear</button>
+            </div>
+            <div id="pastOrdersList" class="space-y-3 max-h-52 overflow-y-auto"></div>
+          </div>
+
         </div>
       `;
       document.body.appendChild(panel);
@@ -603,11 +724,90 @@ if (allVendorsPage && singleVendorPage) {
         cart = [];
         renderCart();
       });
+
+      // ORDER HISTORY
+      function renderOrderHistory() {
+        const historyKey = "chowspot_order_history";
+        const list = document.getElementById("pastOrdersList");
+        const section = document.getElementById("pastOrdersSection");
+        if (!list || !section) return;
+
+        const history = JSON.parse(localStorage.getItem(historyKey) || "[]");
+        const vendorHistory = history.filter(o => o.vendorSlug === vendorId);
+
+        if (vendorHistory.length === 0) {
+          list.innerHTML = `<p class="text-slate-600 text-xs text-center py-3">No past orders from this vendor yet.</p>`;
+          return;
+        }
+
+        list.innerHTML = vendorHistory.map(order => {
+          const date = new Date(order.date);
+          const dateStr = date.toLocaleDateString("en-NG", { day: "numeric", month: "short" });
+          const timeStr = date.toLocaleTimeString("en-NG", { hour: "2-digit", minute: "2-digit" });
+          const summary = order.items.map(i => `${i.qty}× ${i.name}`).join(", ");
+          return `
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs text-slate-500">${dateStr} · ${timeStr}</span>
+                <span class="text-amber-400 text-xs font-bold">₦${order.total.toLocaleString()}</span>
+              </div>
+              <p class="text-slate-400 text-xs leading-relaxed truncate">${summary}</p>
+              <button class="reorder-btn mt-3 w-full bg-slate-800 hover:bg-amber-500 hover:text-black text-slate-300 text-xs font-semibold py-2 rounded-xl transition duration-300"
+                data-order='${JSON.stringify(order.items)}'>
+                🔁 Reorder
+              </button>
+            </div>
+          `;
+        }).join("");
+
+        list.querySelectorAll(".reorder-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const items = JSON.parse(btn.dataset.order);
+            items.forEach(item => {
+              const existing = cart.find(i => i.name === item.name);
+              if (existing) {
+                existing.qty += item.qty;
+              } else {
+                cart.push({ name: item.name, price: item.price, qty: item.qty });
+              }
+            });
+            renderCart();
+            btn.textContent = "✅ Added to cart!";
+            setTimeout(() => { btn.textContent = "🔁 Reorder"; }, 1500);
+          });
+        });
+      }
+
+      document.getElementById("clearHistoryBtn")?.addEventListener("click", () => {
+        const historyKey = "chowspot_order_history";
+        const history = JSON.parse(localStorage.getItem(historyKey) || "[]");
+        const filtered = history.filter(o => o.vendorSlug !== vendorId);
+        localStorage.setItem(historyKey, JSON.stringify(filtered));
+        renderOrderHistory();
+      });
+
+      renderOrderHistory();
       document.getElementById("checkoutBtn").addEventListener("click", () => {
         if (cart.length === 0) return;
         const totalPrice = cart.reduce((sum, i) => sum + getNumericPrice(i.price) * i.qty, 0);
         const itemLines = cart.map((i) => `  • ${i.qty}x ${i.name} (${i.price} each)`).join("\n");
         const message = `Hello ${v.name}! 👋\n\nI'd like to place an order:\n\n${itemLines}\n\n*Total: ₦${totalPrice.toLocaleString()}*\n\nPlease confirm availability. Thank you!`;
+
+        // Save to order history before opening WhatsApp
+        const historyKey = "chowspot_order_history";
+        const history = JSON.parse(localStorage.getItem(historyKey) || "[]");
+        history.unshift({
+          id: Date.now(),
+          vendor: v.name,
+          vendorSlug: vendorId,
+          items: cart.map(i => ({ name: i.name, price: i.price, qty: i.qty })),
+          total: totalPrice,
+          date: new Date().toISOString()
+        });
+        // Keep last 20 orders only
+        localStorage.setItem(historyKey, JSON.stringify(history.slice(0, 20)));
+        renderOrderHistory();
+
         window.open(`https://wa.me/${v.whatsapp}?text=${encodeURIComponent(message)}`, "_blank");
       });
     }

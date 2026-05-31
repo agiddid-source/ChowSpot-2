@@ -1,4 +1,4 @@
-const CACHE_NAME = "chowspot-v1";
+const CACHE_NAME = "chowspot-v2";
 
 const STATIC_ASSETS = [
   "/index.html",
@@ -6,7 +6,8 @@ const STATIC_ASSETS = [
   "/vendor.html",
   "/register.html",
   "/favorites.html",
-  "/app.js",
+  "/admin.html",
+  "/js/app.js",
   "/vendors.json",
   "/manifest.json"
 ];
