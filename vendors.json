@@ -56,7 +56,7 @@
       {
         "name": "Gizzard Mix",
         "price": "₦3,000",
-        "desc": "Spicy stir-fried gizzard with peppers and onions.",
+        "desc": "Well-seasoned gizzard mixed with peppers, onions, and savory spices.",
         "image": "./Images/Gizzard-Mix.jfif"
       },
       {
@@ -224,7 +224,7 @@
       {
         "name": "Chicken Shawarma",
         "price": "₦3,000",
-        "desc": "Creamy chicken shawarma with tasty sausages.",
+        "desc": "Creamy chicken shawarma packed with fresh veggies and tasty sausages.",
         "image": "./Images/Chicken-Shawarma4.jfif"
       },
       {
@@ -319,7 +319,7 @@
       {
         "name": "Peppered Snail",
         "price": "₦5,000",
-        "desc": "Freshly grilled snail tossed in spicy pepper sauce.",
+        "desc": "Freshly grilled snail tossed in spicy pepper sauce with bold local spices.",
         "image": "./Images/Peppered-Snail.jfif"
       },
       {
@@ -331,7 +331,7 @@
       {
         "name": "Roasted Yam & Sauce",
         "price": "₦3,800",
-        "desc": "Soft roasted yam served with rich spicy fish sauce.",
+        "desc": "Freshly roasted yam served with rich pepper sauce and tasty sides.",
         "image": "./Images/Roasted-Yam.jfif"
       },
       {
@@ -497,7 +497,7 @@
       {
         "name": "Peppered Chicken",
         "price": "₦4,500",
-        "desc": "Spicy grilled chicken coated in rich pepper sauce.",
+        "desc": "Tender chicken pieces tossed in rich pepper sauce and grilled spices.",
         "image": "./Images/Pepper-Chicken.jfif"
       },
       {
