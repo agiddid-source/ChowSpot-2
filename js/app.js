@@ -412,7 +412,7 @@ if (allVendorsPage && singleVendorPage) {
       menuContainer.innerHTML = v.menu.map((item) => `
         <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden hover:border-amber-400 hover:shadow-amber-500/20 hover:shadow-lg transition duration-300 fade-up">
           <div class="relative">
-            <img src="${item.image}" alt="${item.name}" class="h-52 w-full object-cover">
+            <img src="${item.image}" alt="${item.name}" class="h-40 w-full object-cover">
           </div>
           <div class="p-6">
             <div class="flex justify-between items-start mb-3">
