@@ -193,7 +193,7 @@
   <section class="py-14 border-b border-slate-800/60">
     <div class="max-w-7xl mx-auto px-6">
       <div class="fade-up show">
-        <h1 class="text-3xl sm:text-4xl font-bold mb-2">Vendor Submissions <span class="text-amber-400">📋</span></h1>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-2">Vendor Submissions <span class="text-amber-400"><i class="fa-solid fa-clipboard-list"></i></span></h1>
         <p class="text-slate-400">Review registrations, inspect details, and generate ready-to-paste vendor code for <code class="text-amber-400 bg-slate-800 px-2 py-0.5 rounded-lg text-sm">app.js</code>.</p>
       </div>
     </div>
@@ -216,7 +216,7 @@
 
     <!-- Empty state -->
     <div id="emptyState" class="hidden text-center py-32 fade-up show">
-      <div class="text-6xl mb-6">📭</div>
+      <div class="text-6xl mb-6"><i class="fa-solid fa-inbox text-slate-500" style="font-size:3.5rem"></i></div>
       <h2 class="text-2xl font-bold mb-3">No submissions yet</h2>
       <p class="text-slate-400 mb-8">Once vendors fill out the registration form, their submissions will appear here.</p>
       <a href="register.html" class="inline-block bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-4 rounded-2xl transition duration-300">
@@ -257,7 +257,7 @@
   <div id="confirmModal" class="fixed inset-0 z-[90] hidden items-center justify-center px-4">
     <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
     <div class="relative bg-slate-900 border border-slate-700 rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
-      <div class="text-5xl mb-4" id="confirmIcon">⚠️</div>
+      <div class="text-5xl mb-4" id="confirmIcon"><i class="fa-solid fa-triangle-exclamation text-amber-400"></i></div>
       <h2 class="text-xl font-bold mb-2" id="confirmTitle">Are you sure?</h2>
       <p class="text-slate-400 text-sm mb-8" id="confirmMsg"></p>
       <div class="flex gap-3">
@@ -299,9 +299,9 @@
         whatsapp: v.whatsapp || "",
         description: v.description || "",
         image: v.image || "",
-        rating: "⭐ – Rating",
+        rating: "★ – Rating",
         reviews: "– Reviews",
-        badge: "🍽️ " + (v.category || "Food"),
+        badge: (v.category || "Food"),
         map: "https://www.google.com/maps?q=" + encodeURIComponent(v.fullLocation || v.location || "") + "&output=embed",
         hours: v.hours || [],
         menu: (v.menu || []).map(item => ({
@@ -377,9 +377,9 @@
     whatsapp: "${escapeStr(v.whatsapp)}",
     description: "${escapeStr(v.description)}",
     image: "${escapeStr(v.image)}",
-    rating: "⭐ – Rating",
+    rating: "★ – Rating",
     reviews: "– Reviews",
-    badge: "🍽️ ${escapeStr(v.category)}",
+    badge: "${escapeStr(v.category)}",
     map: "https://www.google.com/maps?q=${encodeURIComponent(v.fullLocation || v.location)}&output=embed",
     hours: [
 ${hoursLines}
@@ -435,7 +435,7 @@ ${menuLines}
           <div class="flex-shrink-0 w-44 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
             ${item.image
               ? `<img src="${item.image}" class="w-full h-28 object-cover">`
-              : `<div class="w-full h-28 bg-slate-800 flex items-center justify-center text-3xl">🍽️</div>`}
+              : `<div class="w-full h-28 bg-slate-800 flex items-center justify-center text-3xl"><i class="fa-solid fa-utensils text-slate-600"></i></div>`}
             <div class="p-3">
               <p class="font-semibold text-sm truncate">${item.name || "—"}</p>
               <p class="text-amber-400 text-xs font-bold">${item.price || ""}</p>
@@ -459,7 +459,7 @@ ${menuLines}
             <div class="flex items-start gap-4">
               ${v.image
                 ? `<img src="${v.image}" class="w-16 h-16 rounded-2xl object-cover border border-slate-700 shrink-0">`
-                : `<div class="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-2xl shrink-0">🍽️</div>`}
+                : `<div class="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-2xl shrink-0"><i class=\"fa-solid fa-utensils text-slate-500\"></i></div>`}
               <div>
                 <h2 class="text-xl font-bold">${v.name}</h2>
                 <p class="text-slate-400 text-sm mt-0.5"><i class="fa-solid fa-location-dot text-amber-400 mr-1"></i>${v.location || "—"}</p>
@@ -552,7 +552,7 @@ ${menuLines}
           showConfirm(
             "Delete this submission?",
             "This action cannot be undone.",
-            "🗑️",
+            "<i class=\"fa-solid fa-trash text-red-400\"></i>",
             () => deleteSubmission(Number(btn.dataset.id))
           );
         });
@@ -609,7 +609,7 @@ ${menuLines}
     function showConfirm(title, msg, icon, cb) {
       document.getElementById("confirmTitle").textContent = title;
       document.getElementById("confirmMsg").textContent = msg;
-      document.getElementById("confirmIcon").textContent = icon;
+      document.getElementById("confirmIcon").innerHTML = icon;
       confirmCallback = cb;
       document.getElementById("confirmModal").classList.remove("hidden");
       document.getElementById("confirmModal").classList.add("flex");
@@ -651,7 +651,7 @@ ${menuLines}
       showConfirm(
         "Clear all submissions?",
         "This will permanently delete every submission. This cannot be undone.",
-        "⚠️",
+        "<i class=\"fa-solid fa-triangle-exclamation text-amber-400\"></i>",
         () => { localStorage.removeItem(KEY); render(); }
       );
     });

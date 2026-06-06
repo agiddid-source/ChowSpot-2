@@ -120,7 +120,7 @@
           </a>
         </div>
 
-        <button id="menu-btn" class="md:hidden text-3xl">☰</button>
+        <button id="menu-btn" class="md:hidden text-3xl"><i class="fa-solid fa-bars"></i></button>
       </div>
 
       <div id="mobile-menu" class="hidden flex-col gap-4 mt-6 md:hidden text-sm font-medium">
@@ -304,7 +304,7 @@
         <div class="pt-2">
           <button id="submitBtn"
             class="w-full bg-amber-500 hover:bg-amber-400 text-black font-bold py-5 rounded-2xl transition duration-300 hover:scale-[1.01] hover:shadow-amber-500/40 hover:shadow-lg text-lg">
-            Submit My Spot 🚀
+            Submit My Spot <i class="fa-solid fa-rocket ml-1"></i>
           </button>
           <p class="text-slate-500 text-xs text-center mt-4">
             By submitting, you agree to ChowSpot's listing guidelines. We review all submissions before publishing.
@@ -321,7 +321,7 @@
   <div id="successModal" class="fixed inset-0 z-[70] hidden items-center justify-center px-4">
     <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
     <div class="relative bg-slate-900 border border-slate-700 rounded-3xl p-10 max-w-md w-full text-center shadow-2xl">
-      <div class="w-20 h-20 rounded-full bg-amber-500/10 flex items-center justify-center text-4xl mx-auto mb-6">🎉</div>
+      <div class="w-20 h-20 rounded-full bg-amber-500/10 flex items-center justify-center text-4xl mx-auto mb-6"><i class="fa-solid fa-champagne-glasses text-amber-400"></i></div>
       <h2 class="text-2xl font-bold mb-3">You're on the list!</h2>
       <p class="text-slate-400 leading-relaxed mb-8">
         Your spot has been submitted successfully. Our team will review it and get you listed within 24 hours.
@@ -348,7 +348,7 @@
 
         </a>
         <p>© 2026 ChowSpot. All rights reserved.</p>
-        <p>Built with ❤️ for Nigerian street food lovers.</p>
+        <p>Built with <i class="fa-solid fa-heart text-red-400 mx-1"></i> for Nigerian street food lovers.</p>
       </div>
     </div>
   </footer>
@@ -618,11 +618,11 @@
       const whatsapp = document.getElementById("vendorWhatsapp").value.trim();
 
       if (!name || !category || !desc || !city || !address || !whatsapp) {
-        submitBtn.textContent = "⚠️ Please fill all required fields";
+        submitBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i>Please fill all required fields';
         submitBtn.classList.add("bg-red-500");
         submitBtn.classList.remove("bg-amber-500");
         setTimeout(() => {
-          submitBtn.textContent = "Submit My Spot 🚀";
+          submitBtn.innerHTML = 'Submit My Spot <i class="fa-solid fa-rocket ml-1"></i>';
           submitBtn.classList.remove("bg-red-500");
           submitBtn.classList.add("bg-amber-500");
         }, 2500);

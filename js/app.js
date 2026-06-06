@@ -106,7 +106,7 @@ document.querySelectorAll(".food-card").forEach((card) => {
   badge.className = isOpen
     ? "absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10"
     : "absolute top-3 left-3 bg-red-500/80 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10";
-  badge.textContent = isOpen ? "🟢 Open Now" : "🔴 Closed";
+  badge.innerHTML = isOpen ? '<i class="fa-solid fa-circle text-xs mr-1"></i>Open Now' : '<i class="fa-solid fa-circle text-xs mr-1"></i>Closed';
   wrapper.appendChild(badge);
 });
 
@@ -426,7 +426,7 @@ if (allVendorsPage && singleVendorPage) {
               <button class="qty-plus w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-lg font-bold transition" data-name="${item.name}">+</button>
             </div>
             <button class="add-to-cart-btn w-full bg-amber-500 hover:bg-amber-400 text-black font-semibold py-3 rounded-2xl transition duration-300 hover:scale-[1.02]" data-name="${item.name}" data-price="${item.price}">
-              🛒 Add to Cart
+              <i class="fa-solid fa-cart-plus mr-1"></i>Add to Cart
             </button>
           </div>
         </div>
@@ -554,7 +554,7 @@ if (allVendorsPage && singleVendorPage) {
             </div>
             <div>
               <h3 class="font-semibold text-lg">${r.name}</h3>
-              <p class="text-amber-400 text-sm">⭐⭐⭐⭐⭐</p>
+              <p class="text-amber-400 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
             </div>
           </div>
           <p class="text-slate-400 leading-relaxed">${r.review}</p>
@@ -570,19 +570,19 @@ if (allVendorsPage && singleVendorPage) {
     if (saveVendorBtn) {
       const vendorSlug = vendorId;
       if (favorites.includes(vendorSlug)) {
-        saveVendorBtn.innerHTML = "✅ Saved";
+        saveVendorBtn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Saved';
         saveVendorBtn.classList.add("border-amber-400", "text-amber-400");
       }
       saveVendorBtn.addEventListener("click", () => {
         if (!favorites.includes(vendorSlug)) {
           favorites.push(vendorSlug);
           localStorage.setItem("chowspot_favorites", JSON.stringify(favorites));
-          saveVendorBtn.innerHTML = "✅ Saved";
+          saveVendorBtn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Saved';
           saveVendorBtn.classList.add("border-amber-400", "text-amber-400");
         } else {
           favorites = favorites.filter((f) => f !== vendorSlug);
           localStorage.setItem("chowspot_favorites", JSON.stringify(favorites));
-          saveVendorBtn.innerHTML = "❤️ Save Vendor";
+          saveVendorBtn.innerHTML = '<i class="fa-solid fa-heart mr-2"></i>Save Vendor';
           saveVendorBtn.classList.remove("border-amber-400", "text-amber-400");
         }
       });
@@ -614,7 +614,7 @@ if (allVendorsPage && singleVendorPage) {
       if (cart.length === 0) {
         cartItemsList.innerHTML = `
           <div class="flex flex-col items-center justify-center h-full text-center py-16 text-slate-500">
-            <div class="text-6xl mb-4">🛒</div>
+            <div class="text-6xl mb-4"><i class="fa-solid fa-cart-shopping text-slate-600" style="font-size:3rem"></i></div>
             <p class="text-lg font-medium">Your cart is empty</p>
             <p class="text-sm mt-2">Add items from the menu below</p>
           </div>
@@ -669,7 +669,7 @@ if (allVendorsPage && singleVendorPage) {
       widget.className = "hidden fixed bottom-24 right-6 z-50";
       widget.innerHTML = `
         <button id="cartToggleBtn" class="relative bg-amber-500 hover:bg-amber-400 text-black w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl transition duration-300 hover:scale-110 hover:shadow-amber-500/40 hover:shadow-lg">
-          🛒
+          <i class="fa-solid fa-cart-shopping"></i>
           <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">0</span>
         </button>
       `;
@@ -682,7 +682,7 @@ if (allVendorsPage && singleVendorPage) {
         <div id="cartBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
         <div class="absolute right-0 top-0 h-full w-full max-w-md bg-slate-950 border-l border-slate-800 flex flex-col shadow-2xl">
           <div class="flex items-center justify-between px-6 py-5 border-b border-slate-800">
-            <h2 class="text-2xl font-bold">Your Cart 🛒</h2>
+            <h2 class="text-2xl font-bold">Your Cart <i class="fa-solid fa-cart-shopping"></i></h2>
             <button id="cartCloseBtn" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xl transition">✕</button>
           </div>
           <div id="cartItemsList" class="flex-1 overflow-y-auto px-6 py-2"></div>
@@ -692,7 +692,7 @@ if (allVendorsPage && singleVendorPage) {
               <span id="cartTotal" class="text-amber-400 text-2xl font-bold">₦0</span>
             </div>
             <button id="checkoutBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-bold py-4 rounded-2xl transition duration-300 hover:scale-[1.02] hover:shadow-amber-500/40 hover:shadow-lg text-lg">
-              📲 Send Order via WhatsApp
+              <i class="fa-solid fa-paper-plane mr-2"></i>Send Order via WhatsApp
             </button>
             <button id="clearCartBtn" class="w-full border border-slate-700 hover:border-red-400 hover:text-red-400 py-3 rounded-2xl transition duration-300 text-slate-400">
               Clear Cart
@@ -754,7 +754,7 @@ if (allVendorsPage && singleVendorPage) {
               <p class="text-slate-400 text-xs leading-relaxed truncate">${summary}</p>
               <button class="reorder-btn mt-3 w-full bg-slate-800 hover:bg-amber-500 hover:text-black text-slate-300 text-xs font-semibold py-2 rounded-xl transition duration-300"
                 data-order='${JSON.stringify(order.items)}'>
-                🔁 Reorder
+                <i class="fa-solid fa-rotate-right mr-1"></i>Reorder
               </button>
             </div>
           `;
@@ -772,8 +772,8 @@ if (allVendorsPage && singleVendorPage) {
               }
             });
             renderCart();
-            btn.textContent = "✅ Added to cart!";
-            setTimeout(() => { btn.textContent = "🔁 Reorder"; }, 1500);
+            btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Added to cart!';
+            setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-rotate-right mr-1"></i>Reorder'; }, 1500);
           });
         });
       }
@@ -847,11 +847,11 @@ if (allVendorsPage && singleVendorPage) {
         } else {
           cart.push({ name, price, qty });
         }
-        button.textContent = "✅ Added!";
+        button.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Added!';
         button.classList.remove("bg-amber-500", "hover:bg-amber-400");
         button.classList.add("bg-green-500");
         setTimeout(() => {
-          button.textContent = "🛒 Add to Cart";
+          button.innerHTML = '<i class="fa-solid fa-cart-plus mr-1"></i>Add to Cart';
           button.classList.add("bg-amber-500", "hover:bg-amber-400");
           button.classList.remove("bg-green-500");
         }, 1200);
@@ -896,17 +896,17 @@ if (allVendorsPage && singleVendorPage) {
       const name = reviewName.value.trim();
       const text = reviewText.value.trim();
       if (!name || !text || selectedRating === 0) {
-        submitReviewBtn.textContent = "⚠️ Please fill all fields & select a rating";
+        submitReviewBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i>Please fill all fields & select a rating';
         submitReviewBtn.classList.add("bg-red-500");
         submitReviewBtn.classList.remove("bg-amber-500");
         setTimeout(() => {
-          submitReviewBtn.textContent = "Submit Review ✓";
+          submitReviewBtn.innerHTML = 'Submit Review <i class="fa-solid fa-check ml-1"></i>';
           submitReviewBtn.classList.remove("bg-red-500");
           submitReviewBtn.classList.add("bg-amber-500");
         }, 2500);
         return;
       }
-      const starDisplay = "⭐".repeat(selectedRating);
+      const starDisplay = '<i class="fa-solid fa-star text-amber-400"></i>'.repeat(selectedRating);
       const reviewCard = document.createElement("div");
       reviewCard.className = "bg-slate-900 border border-amber-400/30 rounded-3xl p-8 fade-up show";
       reviewCard.innerHTML = `
@@ -930,11 +930,11 @@ if (allVendorsPage && singleVendorPage) {
         s.classList.remove("text-amber-400");
         s.classList.add("text-slate-600");
       });
-      submitReviewBtn.textContent = "✅ Review Submitted!";
+      submitReviewBtn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Review Submitted!';
       submitReviewBtn.classList.add("bg-green-500");
       submitReviewBtn.classList.remove("bg-amber-500");
       setTimeout(() => {
-        submitReviewBtn.textContent = "Submit Review ✓";
+        submitReviewBtn.innerHTML = 'Submit Review <i class="fa-solid fa-check ml-1"></i>';
         submitReviewBtn.classList.remove("bg-green-500");
         submitReviewBtn.classList.add("bg-amber-500");
       }, 2500);

@@ -272,7 +272,7 @@
   "amaka-bole": {
     "name": "Amaka Bole Spot",
     "badge": "Bole & Grill",
-    "image": "./Images/Amaka-Bole-Spot.jfif",
+    "image": "./Images/Bole-Spot-Cover-Pinterest.jfif",
     "fullLocation": "Ada George Road, Port Harcourt, Rivers State, Nigeria.",
     "rating": "⭐ 4.7 Rating",
     "reviews": "210+ Happy Customers",
@@ -314,7 +314,7 @@
         "name": "Bole & Fish",
         "price": "₦4,500",
         "desc": "Roasted plantain served with spicy grilled fish sauce.",
-        "image": "./Images/Bole-and-Fish.jfif"
+        "image": "./Images/Boli-and-Fish.jfif"
       },
       {
         "name": "Peppered Snail",
@@ -332,19 +332,19 @@
         "name": "Roasted Yam & Sauce",
         "price": "₦3,800",
         "desc": "Freshly roasted yam served with rich pepper sauce and tasty sides.",
-        "image": "./Images/Roasted-Yam.jfif"
+        "image": "./Images/Roasted-Yam-and-Sauce-Pinterest.jfif"
       },
       {
         "name": "Catfish Pepper Soup",
         "price": "₦6,000",
         "desc": "Hot spicy catfish pepper soup packed with traditional spices.",
-        "image": "./Images/Catfish-Pepper-Soup.jfif"
+        "image": "./Images/Catfish-Pepper-Soup-Pinterest.jfif"
       },
       {
         "name": "Peppered Turkey & Rice",
         "price": "₦5,200",
         "desc": "Juicy grilled turkey coated in smoky pepper sauce.",
-        "image": "./Images/Peppered-Turkey-and-Rice.jfif"
+        "image": "./Images/Peppered-Turkey-and-Rice-Pinterest.jfif"
       }
     ],
     "customerReviews": [

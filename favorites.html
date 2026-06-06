@@ -94,7 +94,7 @@
         </div>
 
         <!-- MOBILE BUTTON -->
-        <button id="menu-btn" class="md:hidden text-3xl">☰</button>
+        <button id="menu-btn" class="md:hidden text-3xl"><i class="fa-solid fa-bars"></i></button>
       </div>
 
       <!-- MOBILE MENU -->
@@ -121,7 +121,7 @@
         <div>
           <p class="text-amber-400 text-sm font-semibold uppercase tracking-widest mb-3">Your Collection</p>
           <h1 class="text-4xl sm:text-5xl font-bold leading-tight">
-            My Favourites <span class="text-amber-400">❤️</span>
+            My Favourites <span class="text-amber-400"><i class="fa-solid fa-heart"></i></span>
           </h1>
           <p class="text-slate-400 mt-3 text-lg" id="favSubtitle">Vendors you've saved for later.</p>
         </div>
@@ -174,10 +174,10 @@
   <section id="emptyState" class="hidden pb-24">
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex flex-col items-center justify-center text-center py-24 bg-slate-900/40 border border-slate-800 rounded-3xl">
-        <div class="text-7xl mb-6">💔</div>
+        <div class="text-7xl mb-6"><i class="fa-solid fa-heart-crack text-slate-500" style="font-size:4rem"></i></div>
         <h2 class="text-2xl font-bold mb-3">No saved vendors yet</h2>
         <p class="text-slate-400 max-w-md mb-8">
-          When you find a vendor you love, tap the <span class="text-amber-400 font-semibold">❤️ Save Vendor</span> button on their profile page and it'll appear here.
+          When you find a vendor you love, tap the <span class="text-amber-400 font-semibold"><i class="fa-solid fa-heart mr-1"></i>Save Vendor</span> button on their profile page and it'll appear here.
         </p>
         <a href="explore.html"
           class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-4 rounded-2xl transition duration-300 hover:scale-[1.02] hover:shadow-amber-500/40 hover:shadow-lg">
@@ -199,7 +199,7 @@
   <!-- BACK TO TOP -->
   <button id="topBtn"
     class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-amber-500 text-black w-14 h-14 rounded-full shadow-2xl hidden hover:scale-110 hover:shadow-amber-500/40 hover:shadow-lg transition duration-300">
-    ↑
+    <i class="fa-solid fa-arrow-up text-xl font-black"></i>
   </button>
 
 
@@ -311,9 +311,9 @@
         }
 
         const openBadge = isOpen === true
-          ? `<span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">🟢 Open Now</span>`
+          ? `<span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10"><i class=\"fa-solid fa-circle text-xs mr-1\"></i>Open Now</span>`
           : isOpen === false
-          ? `<span class="absolute top-3 left-3 bg-red-500/80 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">🔴 Closed</span>`
+          ? `<span class="absolute top-3 left-3 bg-red-500/80 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10"><i class=\"fa-solid fa-circle text-xs mr-1\"></i>Closed</span>`
           : "";
 
         return `
@@ -334,7 +334,7 @@
                 <i class="fa-solid fa-location-dot text-amber-400 mr-2"></i>${v.location}
               </p>
               <span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-sm mt-3 self-start">
-                ${v.rating}
+                <i class="fa-solid fa-star mr-1"></i>${v.rating.replace(/⭐\s*/,"")}
               </span>
             </div>
 
