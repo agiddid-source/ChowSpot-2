@@ -51,31 +51,31 @@
         "name": "Chicken Suya",
         "price": "₦4,000",
         "desc": "Juicy spicy grilled chicken with onions and tomatoes.",
-        "image": "https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1200&auto=format&fit=crop"
+        "image": "./Images/Chicken-Suya-Pinterest.jfif"
       },
       {
         "name": "Gizzard Mix",
         "price": "₦3,000",
         "desc": "Well-seasoned gizzard mixed with peppers, onions, and savory spices.",
-        "image": "./Images/Gizzard-Mix.jfif"
+        "image": "./Images/Gizzard-Mix-Pinterest.jfif"
       },
       {
         "name": "Kilishi Strips",
         "price": "₦3,500",
         "desc": "Spicy dried beef strips coated in rich suya seasoning.",
-        "image": "./Images/Kilishi-Strips.webp"
+        "image": "./Images/Kilishi-Strips-Pinterest.jfif"
       },
       {
         "name": "Ram Suya",
         "price": "₦5,500",
         "desc": "Tender ram meat grilled over open flames with spicy suya pepper.",
-        "image": "./Images/Ram-Suya.webp"
+        "image": "./Images/Ram-Suya-Pinterest.jfif"
       },
       {
         "name": "Grilled Catfish",
         "price": "₦6,500",
         "desc": "Whole catfish grilled with smoky spices and served with pepper sauce.",
-        "image": "./Images/Tasty-Grilled-Catfish2.jfif"
+        "image": "./Images/Grilled-Catfish-Pinterest.jfif"
       }
     ],
     "customerReviews": [
@@ -95,7 +95,7 @@
     "fullLocation": "GRA District, Benin City, Edo State, Nigeria.",
     "whatsapp": "2349029958371",
     "description": "Bukka Royale is known for delicious smoky party jollof rice and authentic Nigerian local meals.",
-    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop",
+    "image": "./Images/Bukka-Royale-Cover-Pinterest.jfif",
     "rating": "⭐ 4.7 Rating",
     "reviews": "180+ Reviews",
     "badge": "🍛 Popular Jollof Spot",
@@ -135,37 +135,37 @@
         "name": "Party Jollof",
         "price": "₦4,500",
         "desc": "Smoky Nigerian jollof rice with turkey, packed with rich flavors.",
-        "image": "./Images/Party-Jollof.jpg"
+        "image": "./Images/Party-Jollof-Pinterest.jfif"
       },
       {
         "name": "Peppered Turkey",
         "price": "₦4,500",
         "desc": "Spicy grilled turkey with rich pepper sauce and smoky local flavors.",
-        "image": "./Images/Peppered-Turkey.jfif"
+        "image": "./Images/Peppered-Turkey-Pinterest.jfif"
       },
       {
         "name": "Egusi Soup",
         "price": "₦4,500",
         "desc": "Traditional egusi served with pounded yam and rich local spices.",
-        "image": "./Images/Egusi-Soup3.jfif"
+        "image": "./Images/Egusi-Soup-Pinterest.jfif"
       },
       {
         "name": "Goat Meat Pepper Soup",
         "price": "₦5,500",
         "desc": "Hot spicy goat meat pepper soup cooked with local spices.",
-        "image": "./Images/Goat-Meat-Pepper-Soup.webp"
+        "image": "./Images/Goat-Meat-Pepper-Soup-Pinterest.jfif"
       },
       {
         "name": "Tasty Native Rice & Fish",
         "price": "₦5,000",
         "desc": "Rich palm-oil native rice served with smoky grilled fish.",
-        "image": "./Images/Native-Rice-and-Fish.jpg"
+        "image": "./Images/Native-Rice-and-Fish-Pinterest.jfif"
       },
       {
         "name": "Banga Soup & Starch",
         "price": "₦6,000",
         "desc": "Traditional banga soup served with smooth Delta-style starch.",
-        "image": "./Images/Banga-Soup-and-Starch.jpg"
+        "image": "./Images/Banga-Soup-and-Starch-Pinterest.jfif"
       }
     ],
     "customerReviews": [
@@ -225,37 +225,37 @@
         "name": "Chicken Shawarma",
         "price": "₦3,000",
         "desc": "Creamy chicken shawarma packed with fresh veggies and tasty sausages.",
-        "image": "./Images/Chicken-Shawarma4.jfif"
+        "image": "./Images/Chicken-Shawarma-Pinterest.jfif"
       },
       {
         "name": "Beef Shawarma",
         "price": "₦3,500",
         "desc": "Loaded beef shawarma with spicy sauce and fresh veggies.",
-        "image": "./Images/Beef-Shawarma2.jpg"
+        "image": "./Images/Beef-Shawarma-Pinterest.jfif"
       },
       {
         "name": "Special Combo",
         "price": "₦5,000",
         "desc": "Shawarma combo with fries, drink and extra cheesy goodness.",
-        "image": "./Images/Shawarma-Combo2.jfif"
+        "image": "./Images/Special-Combo-Pinterest.jfif"
       },
       {
         "name": "Loaded Shawarma Pizza",
         "price": "₦6,500",
         "desc": "Cheesy pizza loaded with spicy shawarma meat and creamy drizzle.",
-        "image": "./Images/Shawarma-Pizza2.webp"
+        "image": "./Images/Shawarma-Pizza-Pinterest.jfif"
       },
       {
         "name": "Cheesy Hot Dog Deluxe",
         "price": "₦3,800",
         "desc": "Grilled sausage loaded with veggies, creamy sauce, and spicy ketchup.",
-        "image": "./Images/Loaded-Hotdog.jfif"
+        "image": "./Images/Hot-Dog-Deluxe-Pinterest.jfif"
       },
       {
         "name": "Spicy Chicken Wings",
         "price": "₦4,500",
         "desc": "Crispy chicken wings tossed in smoky spicy sauce.",
-        "image": "./Images/Spicy-Chicken-Wings.jfif"
+        "image": "./Images/Spicy-Chicken-Wings-Pinterest.jfif"
       }
     ],
     "customerReviews": [
@@ -272,7 +272,7 @@
   "amaka-bole": {
     "name": "Amaka Bole Spot",
     "badge": "Bole & Grill",
-    "image": "./Images/Boli-Spot-Cover-Pinterest.jfif",
+    "image": "./Images/Amaka-Bole-Spot-Cover-Pinterest.jfif",
     "fullLocation": "Ada George Road, Port Harcourt, Rivers State, Nigeria.",
     "rating": "⭐ 4.7 Rating",
     "reviews": "210+ Happy Customers",
@@ -314,19 +314,19 @@
         "name": "Bole & Fish",
         "price": "₦4,500",
         "desc": "Roasted plantain served with spicy grilled fish sauce.",
-        "image": "./Images/Boli-and-Fish.jfif"
+        "image": "./Images/Boli-and-Fish-Pinterest.jfif"
       },
       {
         "name": "Peppered Snail",
         "price": "₦5,000",
         "desc": "Freshly grilled snail tossed in spicy pepper sauce with bold local spices.",
-        "image": "./Images/Peppered-Snail.jfif"
+        "image": "./Images/Peppered-Snail-Pinterest.jfif"
       },
       {
         "name": "Peppered Goat Meat",
         "price": "₦5,500",
         "desc": "Tender goat meat stir-fried in smoky spicy pepper sauce.",
-        "image": "./Images/Peppered-Goat-Meat2.jpg"
+        "image": "./Images/Peppered-Goat-Meat-Pinterest.jfif"
       },
       {
         "name": "Roasted Yam & Sauce",
@@ -361,7 +361,7 @@
   "iya-basira": {
     "name": "Iya Basira Kitchen",
     "badge": "Local Dishes",
-    "image": "./Images/Iya-Basira-Kitchen.jfif",
+    "image": "./Images/Iya-Basira-Kitchen-Pinterest.jfif",
     "fullLocation": "Herbert Macaulay Way, Yaba, Lagos State, Nigeria.",
     "rating": "⭐ 4.8 Rating",
     "reviews": "340+ Happy Customers",
@@ -403,37 +403,37 @@
         "name": "Amala & Ewedu",
         "price": "₦4,000",
         "desc": "Soft amala served with rich ewedu and assorted meat.",
-        "image": "./Images/Amala-and-Ewedu.jfif"
+        "image": "./Images/Amala-and-Ewedu-Pinterest.jfif"
       },
       {
         "name": "Egusi Soup",
         "price": "₦4,500",
         "desc": "Traditional egusi soup with pounded yam and assorted meat.",
-        "image": "./Images/Egusi-Soup2.jfif"
+        "image": "./Images/Egusi-Soup2-Pinterest.jfif"
       },
       {
         "name": "Ofada Rice & Ayamase",
         "price": "₦5,500",
         "desc": "Local ofada rice served with rich green ayamase sauce and assorted meat.",
-        "image": "./Images/Ofada-Rice-and-Ayamase.jpg"
+        "image": "./Images/Ofada-Rice-and-Ayamase-Pinterest.jfif"
       },
       {
         "name": "Efo Riro & Pounded Yam",
         "price": "₦5,000",
         "desc": "Fresh spinach stew cooked with assorted meat served with soft pounded yam.",
-        "image": "./Images/Efo-Riro-and-Pounded-Yam.jfif"
+        "image": "./Images/Pounded-Yam-and-Efo-Riro-Pinterest.jfif"
       },
       {
         "name": "Gbegiri & Amala Combo",
         "price": "₦4,800",
         "desc": "Smooth gbegiri soup paired with amala and rich stew.",
-        "image": "./Images/Gbegiri-and-Amala-Combo.jfif"
+        "image": "./Images/Gbegiri-and-Amala-Combo-Pinterest.jfif"
       },
       {
         "name": "Designer Stew & Rice",
         "price": "₦5,200",
         "desc": "White rice served with rich designer stew packed with assorted proteins.",
-        "image": "./Images/Designer-Rice-Stew.jpg"
+        "image": "./Images/Designer-Stew-and-Rice-Pinterest.jfif"
       }
     ],
     "customerReviews": [
@@ -450,7 +450,7 @@
   "chops-peppers": {
     "name": "Chops & Peppers",
     "badge": "Snacks & Chops",
-    "image": "./Images/Chops-and-Peppers.jfif",
+    "image": "./Images/Chops-and-Peppers-Cover-Pinterest.jfif",
     "fullLocation": "Wuse 2 District, Abuja, Federal Capital Territory, Nigeria.",
     "rating": "⭐ 4.6 Rating",
     "reviews": "180+ Happy Customers",
@@ -492,37 +492,37 @@
         "name": "Small Chops Combo",
         "price": "₦3,500",
         "desc": "Samosa, spring rolls, puff puff, and spicy wings combo.",
-        "image": "./Images/Small-Chops-Combo.jpg"
+        "image": "./Images/Small-Chops-Combo-Pinterest.jfif"
       },
       {
         "name": "Peppered Chicken",
         "price": "₦4,500",
         "desc": "Tender chicken pieces tossed in rich pepper sauce and grilled spices.",
-        "image": "./Images/Pepper-Chicken.jfif"
+        "image": "./Images/Pepper-Chicken-Pinterest.jfif"
       },
       {
         "name": "Suya Wings Basket",
         "price": "₦4,500",
         "desc": "Crispy chicken wings coated in spicy suya pepper seasoning.",
-        "image": "./Images/Nigerian-style-suya-spice-wings-on-a-plate-with-red-onions-and-herbs.webp"
+        "image": "./Images/Suya-Wings-Basket-Pinterest.jfif"
       },
       {
         "name": "Puff Puff & Gizzard",
         "price": "₦4,000",
         "desc": "Soft puff puff served with spicy stir-fried peppered gizzard.",
-        "image": "./Images/Puff-Puff-and-Peppered-Gizzard-Combo.jfif"
+        "image": "./Images/Puff-Puff-and-Gizzard-Pinterest.jfif"
       },
       {
         "name": "Peppered Turkey Bites",
         "price": "₦5,500",
         "desc": "Juicy turkey bites tossed in rich smoky pepper sauce.",
-        "image": "./Images/Peppered-Turkey-Bite.jfif"
+        "image": "./Images/Peppered-Turkey-Bites-Pinterest.jfif"
       },
       {
         "name": "BBQ Grilled Beef Skewers",
         "price": "₦4,800",
         "desc": "Smoky grilled beef skewers glazed with spicy barbecue sauce.",
-        "image": "./Images/BBQ-Beef-Skewers.jpg"
+        "image": "./Images/BBQ-Grilled-Beef-Skewers-Pinterest.jfif"
       }
     ],
     "customerReviews": [
